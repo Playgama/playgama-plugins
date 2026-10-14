@@ -1,0 +1,27 @@
+{
+  "note": "What the next OpenAI version changes in the plugin.json of the release ZIP. tools/build_openai_zip.py applies it; everything else (name, MCP, review cases, assets) is kept as it was.",
+  "description": "Publish and manage HTML5 games on Playgama from an agent: create games, upload builds and covers, edit in-app products and leaderboards, get QA links, publish a playable sandbox and bring its first players. Its skills check and pack a build, integrate the Bridge SDK and make a trailer of the game.",
+  "longDescription": {
+    "replace": [
+      [
+        "Publish in seconds",
+        "Publish in minutes"
+      ],
+      [
+        "developer cabinet",
+        "developer console"
+      ],
+      [
+        "human actions in the cabinet",
+        "human actions in the console"
+      ]
+    ],
+    "append": "The plugin also brings three skills for the work on your machine. playgama-publish checks the build against Playgama's game checklist, packs the zip and makes the three covers from the game itself. playgama-bridge integrates the Bridge SDK in any engine from Playgama's live documentation. playgama-game-video films the game and makes a trailer or a Short in the game's own look."
+  },
+  "capabilitiesAppend": [
+    "Check a build against Playgama's game checklist and pack it",
+    "Integrate the Playgama Bridge SDK from its live documentation",
+    "Make a trailer or a Short from the game's own gameplay"
+  ],
+  "releaseNotes": "Adds three skills: playgama-publish (checks a build against the game checklist, packs the zip and makes the three covers from the game), playgama-bridge (integrates the Bridge SDK in any engine from the live documentation) and playgama-game-video (films the game and makes a trailer or a Short). The MCP server and its tools are unchanged by this package."
+}

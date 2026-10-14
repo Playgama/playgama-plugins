@@ -1,0 +1,20 @@
+{
+  "name": "playgama-plugins",
+  "interface": {
+    "displayName": "Playgama for Developers"
+  },
+  "plugins": [
+    {
+      "name": "playgama-developer-cabinet",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

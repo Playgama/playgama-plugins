@@ -1,0 +1,14 @@
+{
+  "name": "playgama-plugins",
+  "description": "Playgama's plugin for AI coding agents: publish web games on Playgama.",
+  "owner": {
+    "name": "Playgama"
+  },
+  "plugins": [
+    {
+      "name": "playgama-developer-cabinet",
+      "source": "./",
+      "description": "Publish and manage HTML5 games on Playgama from an agent: create games, upload builds and covers, edit in-app products and leaderboards, get QA links, publish a playable sandbox and bring its first players. Its skills check and pack a build, integrate the Bridge SDK and make a trailer of the game."
+    }
+  ]
+}

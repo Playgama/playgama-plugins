@@ -1,0 +1,59 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "playgama-developer-cabinet",
+  "version": "1.4.0",
+  "description": "Publish and manage HTML5 games on Playgama from an agent: create games, upload builds and covers, edit in-app products and leaderboards, get QA links, publish a playable sandbox and bring its first players. Its skills check and pack a build, integrate the Bridge SDK and make a trailer of the game.",
+  "author": {
+    "name": "Playgama",
+    "email": "developer.success@playgama.com",
+    "url": "https://playgama.com"
+  },
+  "homepage": "https://playgama.com/mcp/",
+  "license": "Apache-2.0",
+  "keywords": [
+    "playgama",
+    "html5-games",
+    "web-games",
+    "game-publishing",
+    "bridge-sdk",
+    "game-video",
+    "gamedev",
+    "mcp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Playgama for Developers",
+        "shortDescription": "Publish and monetize web games",
+        "longDescription": "Publish in minutes, get the audience, start monetization, get all analytics - without leaving your agent.\n\nPlaygama hosts HTML5 games. This remote server puts the Playgama developer console behind MCP, so your agent takes a game from a local build to a public link: it creates the game and fills in its form, uploads a build and polls until the engine analysis finishes, uploads covers in the exact sizes the form requires, edits the in-app purchase catalog and leaderboards, returns a QA Tool link, and publishes a sandbox - a public link anyone can play, with no moderation step. It can also bring the first players to that sandbox through Playgama DSP, with banners built from the game's own covers.\n\nRead-only tools are annotated as read-only and every write as destructive, so the client asks first. Submitting a game to moderation, deleting anything, rolling a game back and reading payouts are deliberately left out and stay human actions in the console.\n\nAfter the link is live the game takes its first players from the Playgama network, and Playgama DSP can send more the same day (beta). Once the game clears the session threshold you can switch on advertising - Playgama Ad serves rewarded, interstitial and banner formats through a single JS SDK. Playtime, retention and revenue reports are in the developer dashboard.\n\nThe plugin also brings three skills for the work on your machine. playgama-publish checks the build against Playgama's game checklist, packs the zip and makes the three covers from the game itself. playgama-bridge integrates the Bridge SDK in any engine from Playgama's live documentation. playgama-game-video films the game and makes a trailer or a Short in the game's own look.",
+        "developerName": "Playgama",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Create a game and fill in its Playgama form",
+          "Upload a build and track engine analysis",
+          "Upload covers in the sizes the form requires",
+          "Edit in-app products and leaderboards",
+          "Get a QA Tool link for a build or a local game",
+          "Publish a public playable sandbox link",
+          "Bring the first players to a sandbox via Playgama DSP",
+          "Read moderation comments and submission state",
+          "Check a build against Playgama's game checklist and pack it",
+          "Integrate the Playgama Bridge SDK from its live documentation",
+          "Make a trailer or a Short from the game's own gameplay"
+        ],
+        "websiteURL": "https://playgama.com/mcp/",
+        "supportURL": "https://wiki.playgama.com/playgama/mcp",
+        "privacyPolicyURL": "https://playgama.com/confidential",
+        "termsOfServiceURL": "https://playgama.com/termsofuse",
+        "defaultPrompt": [
+          "Publish this game to Playgama and give me a public link I can share.",
+          "Upload the new build of my game and tell me when the analysis is done.",
+          "Show the moderation comments on my game and fix the form."
+        ],
+        "logo": "./assets/logo.png",
+        "composerIcon": "./assets/logo.png"
+      }
+    }
+  },
+  "repository": "https://github.com/Playgama/playgama-plugins"
+}
