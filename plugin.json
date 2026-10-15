@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "playgama-developer-cabinet",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Publish and manage HTML5 games on Playgama from an agent: create games, upload builds and covers, edit in-app products and leaderboards, get QA links, publish a playable sandbox and bring its first players. Its skills check and pack a build, integrate the Bridge SDK and make a trailer of the game.",
   "author": {
     "name": "Playgama",

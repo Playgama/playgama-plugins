@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.1
+
+From a full test run, in which an agent with only this plugin made a game, uploaded it and published its sandbox.
+
+- playgama-publish names the fixed values `create_application` takes: `js` for a game without an engine,
+  `claude-code` and `claude-opus`, and `modelId`. The test's first call failed on a free-text engine.
+- It says that `get_launch_steps` answers once the game exists, so the game is found or created first.
+- `covers.mjs --title-at top` puts the title at the top, off the player when the action sits at the bottom.
+- The skill says where to run `covers.mjs`: in the folder where puppeteer is installed, with `CHROME` set for
+  puppeteer-core. It also says `--font` is only for a game with a font of its own.
+- playgama-bridge spells the engine the way `get_bridge_sdk_docs` does (`Plain JS`). The tool ignores an unknown name
+  without an error.
+
 ## 1.4.0
 
 Named and described like Playgama's plugin in OpenAI's directory, so both catalogs show "Playgama for Developers"

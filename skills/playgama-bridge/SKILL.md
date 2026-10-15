@@ -17,7 +17,9 @@ The SDK changes between releases, and its API moved a lot from v1 to v2. Read th
 
 - **With the Playgama MCP server connected:** `get_bridge_sdk_docs` without a page answers the index (pages marked
   `required` are the mandatory ones). With `page` and `engine` it answers one page cut to that engine's code, for
-  example `page: "setup", engine: "Unity"`. `get_game_checklist` lists every requirement in the order to do them.
+  example `page: "setup", engine: "Unity"`. Spell `engine` the way the tool's description does (plain JavaScript is
+  `Plain JS`): a name that matches no tab is ignored without an error, and `engineFilter` in the answer shows which
+  tabs were kept. `get_game_checklist` lists every requirement in the order to do them.
 - **Without it:** `https://wiki.playgama.com/playgama/bridge-sdk.md` is the whole SDK in one file for agents, and
   `https://wiki.playgama.com/playgama/llms.txt` indexes every page. Adding `.md` to any wiki page's URL gives its
   Markdown.

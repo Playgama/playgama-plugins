@@ -4,10 +4,12 @@
 // the game's title on it when --title is given, in the game's own font when --font is given.
 //
 //   node covers.mjs --shot landscape.png [--portrait tall.png] [--square square.png]
-//        [--title "Coin Town"] [--font fonts/Title.ttf] [--color "#ffffff"] [--focus 0.5,0.45] [--out covers]
+//        [--title "Coin Town"] [--title-at bottom|top] [--font fonts/Title.ttf] [--color "#ffffff"]
+//        [--focus 0.5,0.45] [--out covers]
 //
 //   --shot       a screenshot of the game, used for every cover that has no picture of its own
 //   --portrait   a screenshot taken in a tall window (the portrait cover crops a wide shot hard)
+//   --title-at   where the title sits: bottom (the default) or top, to keep it off the player or the action
 //   --focus      what to keep when cropping, as fractions of the picture: 0.5,0.5 is the centre
 //
 // Prints each file with its format and size in bytes: what start_cover_upload asks for. Needs puppeteer, found in the
@@ -21,9 +23,11 @@ const args = process.argv.slice(2);
 const opt = (n, d) => { const i = args.indexOf('--' + n); return i >= 0 ? args[i + 1] : d; };
 const shot = opt('shot');
 if (!shot) {
-  console.error('usage: node covers.mjs --shot <screenshot.png> [--portrait <png>] [--square <png>] [--title "Game"] [--font <file>] [--out covers]');
+  console.error('usage: node covers.mjs --shot <screenshot.png> [--portrait <png>] [--square <png>] [--title "Game"] [--title-at bottom|top] [--font <file>] [--out covers]');
   process.exit(2);
 }
+const titleAt = opt('title-at', 'bottom');
+if (!['bottom', 'top'].includes(titleAt)) { console.error(`--title-at takes bottom or top, not "${titleAt}"`); process.exit(2); }
 const pics = { landscape: shot, portrait: opt('portrait', shot), square: opt('square', shot) };
 for (const p of new Set(Object.values(pics))) if (!existsSync(p)) { console.error(`not found: ${p}`); process.exit(2); }
 const title = opt('title', '');
@@ -70,8 +74,8 @@ try {
     writeFileSync(tmp, `<!doctype html><meta charset="utf-8"><style>${fontFace}
 html,body{margin:0;width:${s.w}px;height:${s.h}px;overflow:hidden;background:#000}
 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${fx * 100}% ${fy * 100}%}
-.shade{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,0))}
-h1{position:absolute;left:6%;right:6%;bottom:7%;margin:0;color:${color};font:800 ${px}px/1.05 "Cover Title",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+.shade{position:absolute;left:0;right:0;${titleAt}:0;height:42%;background:linear-gradient(to ${titleAt === 'top' ? 'bottom' : 'top'},rgba(0,0,0,.72),rgba(0,0,0,0))}
+h1{position:absolute;left:6%;right:6%;${titleAt}:7%;margin:0;color:${color};font:800 ${px}px/1.05 "Cover Title",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 text-align:center;text-shadow:0 4px 18px rgba(0,0,0,.55);overflow-wrap:anywhere}</style>
 <img src="${pathToFileURL(path.resolve(pics[s.cover])).href}">${title ? `<div class="shade"></div><h1>${esc(title)}</h1>` : ''}`);
     await page.setViewport({ width: s.w, height: s.h, deviceScaleFactor: 1 });

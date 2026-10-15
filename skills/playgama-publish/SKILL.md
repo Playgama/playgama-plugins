@@ -22,11 +22,13 @@ puppeteer.
   claude.ai it's Settings → Connectors. Never ask for a password or a token in the chat.
 - **Find the game.** `list_applications` lists the organization's games, newest first; match on the title. Titles
   aren't unique, so if `create_application` failed without a clear answer, list again before creating another.
-  A new game takes its English title, its engine, and the agent and model that made it: say truthfully which agent
-  and model you are.
-- **Follow the path.** `get_launch_steps` answers the steps in order (archive, bridge, covers, form, sandbox, share,
-  traffic), the current one and the tools that move it. Read it again after every step. UNKNOWN means call again,
-  not done or not done.
+  A new game takes its English title and fixed values from the tool's schema, not free text: `engine` (`js` for a
+  plain HTML5 or JavaScript game with no engine), `agent` and `model` for the coding agent and its model family
+  (Claude Code with Claude Opus is `claude-code` and `claude-opus`), and `modelId` for the exact model your runtime
+  names. Say truthfully which agent and model you are.
+- **Follow the path.** Once the game exists, `get_launch_steps` with its id answers the steps in order (archive,
+  bridge, covers, form, sandbox, share, traffic), the current one and the tools that move it. Before the game is found
+  or created it has nothing to answer. Read it again after every step. UNKNOWN means call again, not done or not done.
 
 ## 1. Bridge first
 
@@ -85,8 +87,14 @@ node scripts/covers.mjs --shot shots/wide.png --portrait shots/tall.png --title 
   --font assets/fonts/Title.woff2 --out covers
 ```
 
+Run it from the folder where puppeteer is installed (`npm i puppeteer` there), with the screenshot paths given from
+that folder: the script looks for puppeteer beside itself and in the folder it runs from. With puppeteer-core instead,
+set `CHROME` to a Chrome or Chromium binary, e.g. `CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`.
+Leave out `--font` when the game uses a system font.
+
 It fills each frame with the screenshot (`--focus 0.5,0.4` chooses what to keep), puts the title on it in the game's
-own font, and prints the cover slot, format and `contentSize` for each file. Show the developer the covers before
+own font, at the bottom, or at the top with `--title-at top` when the player or the action sits at the bottom, and
+prints the cover slot, format and `contentSize` for each file. Show the developer the covers before
 uploading. Then, for each one: `start_cover_upload`, PUT the file, `confirm_cover_upload`. A new cover replaces the
 one in its slot.
 
