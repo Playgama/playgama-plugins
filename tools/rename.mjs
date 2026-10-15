@@ -38,12 +38,11 @@ market.name = now.marketplace;
 for (const p of market.plugins) if (p.name === was.plugin) p.name = now.plugin;
 writeJson('.claude-plugin/marketplace.json', market);
 
-const portable = readJson('plugin.json');
-portable.name = now.plugin;
-if (repo) portable.repository = `https://github.com/${repo}`;
-const ui = portable.extensions?.['com.openai']?.interface;
-if (ui) ui.displayName = now.display;
-writeJson('plugin.json', portable);
+const codexPlugin = readJson('.codex-plugin/plugin.json');
+codexPlugin.name = now.plugin;
+if (repo) codexPlugin.repository = `https://github.com/${repo}`;
+if (codexPlugin.interface) codexPlugin.interface.displayName = now.display;
+writeJson('.codex-plugin/plugin.json', codexPlugin);
 
 if (existsSync(at('.agents/plugins/marketplace.json'))) {
   const codex = readJson('.agents/plugins/marketplace.json');

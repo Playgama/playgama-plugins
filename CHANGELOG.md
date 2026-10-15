@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.2
+
+- Codex now reads the plugin from `.codex-plugin/plugin.json`, its own format, instead of the Agent Plugins
+  `plugin.json` and `mcp.json` at the root. For a plugin in the Agent Plugins format, Codex shows only as many MCP
+  tools as fit in 8,000 bytes each and 64,000 bytes in all. Playgama's 33 tools take about 227,000, so Codex hid five
+  of them: `update_application_form`, `start_cover_upload`, `start_sandbox_traffic`, `replace_in_app_products` and
+  `update_leaderboard`. Without the form and the covers a game couldn't reach its sandbox. In its own format Codex
+  shows all 33.
+
 ## 1.4.1
 
 From a full test run, in which an agent with only this plugin made a game, uploaded it and published its sandbox.
