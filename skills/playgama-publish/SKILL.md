@@ -108,10 +108,14 @@ whole. Write the texts from what the project really is: its code, README and con
 - `howToPlayText`: the goal, how to win, the controls on desktop and on touch. 100 characters or more.
 - `story`: the developer's note to players. The tool's own description has its rules (first person, a real detail
   from making it, a question at the end, no ad words); follow them exactly.
+- `category`: read `get_game_categories` first, then choose by the core mechanic, from what the game really shows (a
+  round, the controls, the code), never from the title, the theme or the categories of games in Playgama's catalog.
+  If two fit, its `howToChoose` says which one to take.
 - `supportedDevices`, `supportedLanguages`, `isHorizontal` / `isVertical` (needed for mobile), and the flags for
   leaderboards, multiplayer and social, all as the game really is.
 
-Show the developer the texts before the first save. `get_submission_state` names any field still missing.
+Show the developer the texts and the category before the first save, and the other category too when two came close.
+`get_submission_state` names any field still missing.
 
 ## 7. Publish the sandbox
 
