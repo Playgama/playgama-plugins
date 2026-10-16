@@ -119,7 +119,8 @@ publishing.**
 
 1. `get_sandbox_state` with the `archiveId` says whether `publish_sandbox` would refuse and why; fix that first.
 2. `publish_sandbox`. When this build replaces a live one, send an `updateNote` (its rules are in the tool's
-   description). Publication takes a few minutes: follow `get_sandbox_state` until the publication is PUBLISHED.
+   description). Publication takes a few minutes: follow the PLAYGAMA_SANDBOX publication of `get_publications`
+   until it is PUBLISHED.
 3. Hand out the `url` exactly as answered; never build a link yourself.
 4. Open the published link in a headless browser and check the game runs there as it did locally (checklist, last item).
 
