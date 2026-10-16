@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.4
+
+From an audit of the skills against the live Playgama tools.
+
+- playgama-publish follows a sandbox publication the way `publish_sandbox` now describes it: `get_publications`,
+  read after its `retryAfterSeconds`, until PUBLISHED or FAILED, and a FAILED one is told to the developer. It also
+  presents a free traffic boost without a dollar amount, as the traffic tools ask.
+- `serve.mjs` sends a folder asked for without its closing slash on to the slash, so that page's relative paths load.
+
 ## 1.4.3
 
 From the checks in Anthropic's submission portal.

@@ -34,11 +34,15 @@ const TYPES = {
 };
 
 const server = createServer((req, res) => {
-  let rel;
-  try { rel = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch { res.writeHead(400).end(); return; }
+  let url, rel;
+  try { url = new URL(req.url, 'http://localhost'); rel = decodeURIComponent(url.pathname); } catch { res.writeHead(400).end(); return; }
   let file = path.join(root, rel);
   if (file !== root && !file.startsWith(root + path.sep)) { res.writeHead(403).end(); return; }
-  try { if (statSync(file).isDirectory()) file = path.join(file, 'index.html'); } catch { /* answered below */ }
+  let isDir = false;
+  try { isDir = statSync(file).isDirectory(); } catch { /* answered below */ }
+  // a folder without its slash: send it on with one, or the page's relative paths miss
+  if (isDir && !url.pathname.endsWith('/')) { res.writeHead(301, { Location: url.pathname + '/' + url.search }).end(); return; }
+  if (isDir) file = path.join(file, 'index.html');
   let st;
   try { st = statSync(file); } catch { st = null; }
   if (!st || !st.isFile()) { res.writeHead(404, { 'Content-Type': 'text/plain' + TEXT }).end('not found'); return; }

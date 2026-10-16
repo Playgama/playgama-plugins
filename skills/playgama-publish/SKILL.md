@@ -120,8 +120,9 @@ publishing.**
 
 1. `get_sandbox_state` with the `archiveId` says whether `publish_sandbox` would refuse and why; fix that first.
 2. `publish_sandbox`. When this build replaces a live one, send an `updateNote` (its rules are in the tool's
-   description). Publication takes a few minutes: follow the PLAYGAMA_SANDBOX publication of `get_publications`
-   until it is PUBLISHED.
+   description). Publication takes a few minutes: follow the PLAYGAMA_SANDBOX publication of `get_publications`,
+   waiting its `retryAfterSeconds` between reads, until it is PUBLISHED. FAILED means it never went live and no reason
+   is given: tell the developer, and a new publish starts over. Until one of the two, another publish is refused.
 3. Hand out the `url` exactly as answered; never build a link yourself.
 4. Open the published link in a headless browser and check the game runs there as it did locally (checklist, last item).
 
@@ -130,8 +131,8 @@ publishing.**
 - `get_sandbox_share` has a ready post and share links: give them to the developer.
 - `get_sandbox_traffic` says what's on offer. A referral bonus needs no post. The share bonus needs 1 to 3 public
   posts that the developer has actually published: ask for their links and never make one up. A campaign can't be
-  undone, so **ask before `start_sandbox_traffic`**, then follow its run until it leaves PENDING. Paid traffic is the
-  developer's, in the console.
+  undone, so **ask before `start_sandbox_traffic`**, then follow its run until it leaves PENDING. Present a free boost
+  without a dollar amount. Paid traffic is the developer's, in the console.
 
 ## 9. Afterwards
 
