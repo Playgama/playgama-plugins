@@ -59,9 +59,10 @@ newer. If the game doesn't have it, or has v1, use the `playgama-bridge` skill b
 
 ## 3. Try it before uploading
 
-Serve the build (`npx serve dist`, or `python3 -m http.server` inside it) and call `get_local_game_qa_tool_link`
-with that URL. Hand the developer the link exactly as answered: the QA Tool runs the game in the Bridge harness, which
-is where ads, pause and saves can be tried. Ten minutes here saves a failed upload.
+Serve the build with `node scripts/serve.mjs dist` (add `--isolate` for a threaded export such as Godot 4's) and call
+`get_local_game_qa_tool_link` with the address it prints. Hand the developer the link exactly as answered: the QA Tool
+runs the game in the Bridge harness, which is where ads, pause and saves can be tried. Ten minutes here saves a failed
+upload.
 
 ## 4. Upload
 

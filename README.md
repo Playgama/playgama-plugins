@@ -67,7 +67,8 @@ token to copy. You can see and revoke connected agents at [developer.playgama.co
   traffic campaigns. The skills tell it to ask you before anything public: publishing, starting traffic.
 - **Uploads**: the build's zip and the covers go by HTTPS PUT to the one-hour upload links the server gives.
 - **playgama-publish scripts** run on your machine: `precheck.mjs` reads the build's files and sends nothing;
-  `pack.mjs` writes the zip; `covers.mjs` renders the covers in a local headless Chrome.
+  `pack.mjs` writes the zip; `covers.mjs` renders the covers in a local headless Chrome; `serve.mjs` serves the build
+  on this computer only (127.0.0.1) for the QA Tool.
 - **playgama-game-video** runs your game in a local headless Chrome to film it. Making a video folder downloads GSAP
   from jsDelivr and puppeteer from npm, and rendering runs HyperFrames through `npx`. A generated voice sends the
   script's lines, with your own key, to the service you choose (ElevenLabs, OpenAI, Google Gemini or Cartesia); the

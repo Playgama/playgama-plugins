@@ -5,9 +5,9 @@
 to use them (its section 6).
 
 That includes:
-- the logo files, `skills/playgama-game-video/assets/playgama-ai-logo.svg` and `playgama-ai-logo.png`;
-- the intro sting drawn from them: `sting.html`, `playgama-ai-sting.html`, `sting-preview.mp4` and the sting in the
-  video template, all in `skills/playgama-game-video/assets/`.
+- the Playgama AI logo files, in SVG and in PNG, in the video skill's assets folder;
+- the intro sting drawn from them: its two pages there (sting.html and playgama-ai-sting.html), its animated preview
+  and the sting in the video template.
 
 ## You may
 

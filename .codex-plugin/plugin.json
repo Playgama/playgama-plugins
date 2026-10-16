@@ -1,6 +1,6 @@
 {
   "name": "playgama-developer-cabinet",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Publish and manage HTML5 games on Playgama from an agent: create games, upload builds and covers, edit in-app products and leaderboards, get QA links, publish a playable sandbox and bring its first players. Its skills check and pack a build, integrate the Bridge SDK and make a trailer of the game.",
   "author": {
     "name": "Playgama",
@@ -49,8 +49,6 @@
       "Publish this game to Playgama and give me a public link I can share.",
       "Upload the new build of my game and tell me when the analysis is done.",
       "Show the moderation comments on my game and fix the form."
-    ],
-    "logo": "./assets/logo.png",
-    "composerIcon": "./assets/logo.png"
+    ]
   }
 }

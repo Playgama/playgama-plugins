@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.4.3
+
+From the checks in Anthropic's submission portal.
+
+- The plugin's listing carries an icon and its links: documentation, support, privacy policy and terms (`icon`,
+  `documentationUrl`, `supportUrl`, `privacyPolicyUrl`, `termsOfServiceUrl`). The portal had warned that the
+  privacy policy URL was missing.
+- playgama-publish serves the build for the QA Tool with its own `scripts/serve.mjs` instead of `npx serve`, which
+  downloaded and ran a package. It serves on 127.0.0.1 only, moves to the next port when one is busy, sends
+  pre-compressed `.br` and `.gz` files with their encoding, and `--isolate` adds the cross-origin isolation headers
+  that a threaded export needs.
+- TRADEMARKS.md and NOTICE describe the logo files, the sting and the fonts in words instead of file paths, and the
+  Codex manifest no longer points at the logo picture. The portal held the plugin for files that name a bundled
+  picture or font.
+- The video skill's Windows draft voice creates its speech synthesizer with `::new()`. The portal had read the old
+  form as the start of a download command.
+
 ## 1.4.2
 
 - Codex now reads the plugin from `.codex-plugin/plugin.json`, its own format, instead of the Agent Plugins

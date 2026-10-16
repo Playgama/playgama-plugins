@@ -113,7 +113,7 @@ const SYNTH = {
     } else if (OS === 'Windows') {
       const q = (v) => `'${String(v).replace(/'/g, "''")}'`;
       execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command',
-        'Add-Type -AssemblyName System.Speech; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; ' +
+        'Add-Type -AssemblyName System.Speech; $s = [System.Speech.Synthesis.SpeechSynthesizer]::new(); ' +
         (voice ? `$s.SelectVoice(${q(voice)}); ` : '') + `$s.SetOutputToWaveFile(${q(out)}); $s.Speak(${q(text)}); $s.Dispose()`]);
     } else {
       try { execFileSync('espeak-ng', [...(voice ? ['-v', voice] : []), '-w', out, text]); } catch (e) {
