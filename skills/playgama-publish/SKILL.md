@@ -133,7 +133,7 @@ publishing.**
 ## 8. Share it and bring the first players
 
 - `get_sandbox_share` has a ready post and share links: give them to the developer.
-- `get_sandbox_traffic` says what's on offer. A referral bonus needs no post. The share bonus needs 1 to 3 public
+- `get_sandbox_traffic` says what's on offer. A referral bonus needs no post. The share bonus needs 1 or 2 public
   posts that the developer has actually published: ask for their links and never make one up. A campaign can't be
   undone, so **ask before `start_sandbox_traffic`**, then follow its run until it leaves PENDING. Present a free boost
   without a dollar amount. Paid traffic is the developer's, in the console.
