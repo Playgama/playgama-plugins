@@ -111,12 +111,16 @@ whole. Write the texts from what the project really is: its code, README and con
   from making it, a question at the end, no ad words); follow them exactly.
 - `category`: read `get_game_categories` first, then choose by the core mechanic, from what the game really shows (a
   round, the controls, the code), never from the title, the theme or the categories of games in Playgama's catalog.
-  If two fit, its `howToChoose` says which one to take.
+  If two fit, its `howToChoose` says which one to take. Save the chosen canonical category with
+  `update_application_form` before publishing the sandbox; an incomplete draft may leave it empty.
 - `supportedDevices`, `supportedLanguages`, `isHorizontal` / `isVertical` (needed for mobile), and the flags for
   leaderboards, multiplayer and social, all as the game really is.
 
 Show the developer the texts and the category before the first save, and the other category too when two came close.
 `get_submission_state` names any field still missing.
+
+AI classification runs independently of the developer's category selection and is best effort. Do not wait for its
+result before publishing the sandbox: a pending or failed classifier must never block publication.
 
 ## 7. Publish the sandbox
 
