@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-// Checks a web game's build folder against the parts of Playgama's game checklist that the files themselves can show,
-// before anything is uploaded. The numbers are the checklist's own (get_game_checklist, or
-// https://wiki.playgama.com/playgama/mcp/game-checklist.md). It reads files only: it runs nothing and sends nothing.
+// Checks a web game's build folder against the parts of Playgama's game requirements that the files themselves can
+// show, before anything is uploaded. The numbers are the requirements' own (get_game_checklist, or
+// https://wiki.playgama.com/playgama/game-requirements.md); SDK marks a required step of the Bridge SDK (the `api`
+// page). It reads files only: it runs nothing and sends nothing.
 //
 //   node precheck.mjs <build folder> [--json]
 //
-// FAIL: the upload will be refused or the game breaks the checklist. WARN: look at it; a text search can be wrong
+// FAIL: the upload will be refused or the game breaks a requirement. WARN: look at it; a text search can be wrong
 // (a URL inside a library's licence comment is not a request). Exits 1 when something fails. What only playing the
 // game can show is listed at the end: play it in the QA Tool for those.
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
@@ -53,45 +54,45 @@ const engine = has(/(^|\/)Build\/.*\.(loader|framework)\.js$/i) ? 'Unity'
   : 'plain JS';
 const codeChecks = engine === 'plain JS';
 
-// 18. index.html at the root, Latin names
-if (files.some((f) => f.rel === 'index.html')) add('PASS', 18, 'index.html is at the root');
+// 1.3.2 index.html at the root, Latin names
+if (files.some((f) => f.rel === 'index.html')) add('PASS', '1.3.2', 'index.html is at the root');
 else {
   const nested = files.filter((f) => /(^|\/)index\.html$/i.test(f.rel)).map((f) => f.rel);
-  add('FAIL', 18, 'no index.html at the root of the build' + (nested.length ? ': pack the folder that holds it' : ''), nested);
+  add('FAIL', '1.3.2', 'no index.html at the root of the build' + (nested.length ? ': pack the folder that holds it' : ''), nested);
 }
 const nonLatin = files.filter((f) => /[^\x20-\x7e]/.test(f.rel)).map((f) => f.rel);
-if (nonLatin.length) add('FAIL', 18, 'file or folder names with non-Latin characters', nonLatin);
-else add('PASS', 18, 'every file and folder name is Latin');
+if (nonLatin.length) add('FAIL', '1.3.2', 'file or folder names with non-Latin characters', nonLatin);
+else add('PASS', '1.3.2', 'every file and folder name is Latin');
 
-// 17. size (the zip comes out smaller; pack.mjs prints its exact size)
+// 1.3.1 size (the zip comes out smaller; pack.mjs prints its exact size)
 const total = files.reduce((s, f) => s + f.size, 0);
 const mb = (n) => (n / 1024 / 1024).toFixed(1) + ' MB';
-if (total <= MAX) add('PASS', 17, `${mb(total)} unpacked, under the 300 MB limit`);
-else add('WARN', 17, `${mb(total)} unpacked: pack it and check that the zip is 300 MB or less`);
+if (total <= MAX) add('PASS', '1.3.1', `${mb(total)} unpacked, under the 300 MB limit`);
+else add('WARN', '1.3.1', `${mb(total)} unpacked: pack it and check that the zip is 300 MB or less`);
 const junk = files.filter((f) => f.rel.split('/').some((s) => JUNK.test(s))).map((f) => f.rel);
 if (junk.length) add('WARN', '', 'system files in the build (pack.mjs leaves them out)', junk.slice(0, 8));
 const maps = files.filter((f) => /\.map$/i.test(f.rel));
 if (maps.length) add('WARN', '', `${maps.length} source map file(s), ${mb(maps.reduce((s, f) => s + f.size, 0))}: not needed by players`);
 
-// 1. Bridge: present, and new enough for the sandbox (2.2.0)
+// 1.1.1 Bridge: present, and new enough for the sandbox (2.2.0); SDK: its config beside index.html
 const index = texts.find((f) => f.rel === 'index.html');
 const cdn = [...new Set(texts.flatMap((f) => f.body.match(/https?:\/\/bridge\.playgama\.com\/[^\s"'<>)]+/g) || []))];
 const local = files.filter(bridgeFile).map((f) => f.rel);
 const anyBridge = cdn.length || local.length || where(/@playgama\/bridge|bridge\.initialize\s*\(/).length;
-if (!anyBridge) add('FAIL', 1, 'no Playgama Bridge SDK found: every game needs it, the sandbox included (playgama-bridge skill)');
+if (!anyBridge) add('FAIL', '1.1.1', 'no Playgama Bridge SDK found: every game needs it, the sandbox included (playgama-bridge skill)');
 else {
   const v1 = cdn.filter((u) => /\/v1\//.test(u));
-  if (v1.length) add('FAIL', 1, 'Bridge v1 from the CDN: the sandbox takes 2.2.0 or newer (wiki: migration-v1-to-v2)', v1);
-  else add('PASS', 1, 'Playgama Bridge is in the build', [...cdn, ...local]);
+  if (v1.length) add('FAIL', '1.1.1', 'Bridge v1 from the CDN: the sandbox takes 2.2.0 or newer (wiki: migration-v1-to-v2)', v1);
+  else add('PASS', '1.1.1', 'Playgama Bridge is in the build', [...cdn, ...local]);
   for (const f of texts.filter(bridgeFile)) {
     const v = (f.body.match(/\bversion\s*[:=]\s*["'](\d+)\.(\d+)\.(\d+)["']/) || []).slice(1).map(Number);
     if (v.length === 3) {
       const ok = v[0] > 2 || (v[0] === 2 && v[1] >= 2);
-      add(ok ? 'PASS' : 'FAIL', 1, `${f.rel} reads as Bridge ${v.join('.')}` + (ok ? '' : ': the sandbox takes 2.2.0 or newer'));
+      add(ok ? 'PASS' : 'FAIL', '1.1.1', `${f.rel} reads as Bridge ${v.join('.')}` + (ok ? '' : ': the sandbox takes 2.2.0 or newer'));
     }
   }
   if (!files.some((f) => /(^|\/)playgama-bridge-config\.json$/.test(f.rel)))
-    add('WARN', 1, 'no playgama-bridge-config.json: Bridge loads it from beside index.html (wiki: config)');
+    add('WARN', 'SDK', 'no playgama-bridge-config.json: Bridge loads it from beside index.html (wiki: config)');
 }
 
 // root-absolute paths break when the build is served from a sub-folder
@@ -100,7 +101,7 @@ if (index) {
   if (abs.length) add('WARN', '', 'index.html loads files by root-absolute paths: use relative ones (Vite: base: \'./\')', abs.slice(0, 6));
 }
 
-// 16. nothing external but the Bridge itself; 19. no external analytics; 35. no links out
+// 1.2.5 nothing external but the Bridge itself; 1.2.4 no external analytics; 1.2.6 links out only where allowed
 const SAFE = /^(bridge\.playgama\.com|www\.w3\.org|w3\.org|localhost|127\.0\.0\.1|example\.(com|org)|schemas\.|ns\.adobe\.com|purl\.org|json-schema\.org)/;
 const hosts = new Map();
 for (const f of gameCode) {
@@ -111,16 +112,16 @@ for (const f of gameCode) {
     hosts.get(h).add(f.rel);
   }
 }
-if (!hosts.size) add('PASS', 16, 'no addresses outside the build except the Bridge CDN');
-else add('WARN', 16, `${hosts.size} outside address(es) in the code: nothing may load from outside but the Bridge (a URL in a licence comment is fine)`,
+if (!hosts.size) add('PASS', '1.2.5', 'no addresses outside the build except the Bridge CDN');
+else add('WARN', '1.2.5', `${hosts.size} outside address(es) in the code: nothing may load from outside but the Bridge (a URL in a licence comment is fine)`,
   [...hosts].slice(0, 10).map(([h, fs]) => `${h}  (${[...fs].slice(0, 2).join(', ')})`));
 const ANALYTICS = /googletagmanager\.com|google-analytics\.com|\bgtag\s*\(|connect\.facebook\.net|\bfbq\s*\(|mc\.yandex\.ru|cdn\.segment\.com|api\.amplitude\.com|cdn\.mxpnl\.com|static\.hotjar\.com|clarity\.ms/i;
 const an = where(ANALYTICS);
-if (an.length) add('FAIL', 19, 'external analytics in the build: send events through Bridge analytics instead', an);
-else add('PASS', 19, 'no external analytics');
+if (an.length) add('FAIL', '1.2.4', 'external analytics in the build: send events through Bridge analytics instead', an);
+else add('PASS', '1.2.4', 'no external analytics');
 const SOCIAL = /https?:\/\/(www\.)?(facebook\.com|twitter\.com|x\.com|instagram\.com|tiktok\.com|discord\.gg|discord\.com\/invite|t\.me|youtube\.com|youtu\.be|vk\.com|reddit\.com)\//i;
 const so = where(SOCIAL, gameCode.filter((f) => /\.(html?|m?js)$/i.test(f.rel)));
-if (so.length) add('WARN', 35, 'links to social networks or other sites: the game may not link out', so.slice(0, 6));
+if (so.length) add('WARN', '1.2.6', 'links to social networks or other sites: show them only when platform.isExternalLinksAllowed is true', so.slice(0, 6));
 
 // what the game's own code does with Bridge (plain JS only)
 if (codeChecks && anyBridge) {
@@ -132,15 +133,15 @@ if (codeChecks && anyBridge) {
   // can inline their values. game_ready often goes through the game's own wrapper (n(l.GAME_READY)), so it counts
   // when the name is there and some code calls sendMessage
   const ready = where(/game_ready|GAME_READY/).length && where(/sendMessage\s*\(/).length;
-  add(ready ? 'PASS' : 'WARN', 9, ready ? 'sends game_ready'
+  add(ready ? 'PASS' : 'WARN', 'SDK', ready ? 'sends game_ready'
     : 'no game_ready message found: send platform.sendMessage(\'game_ready\') once the player can play');
-  check(8, /\.on\(\s*[^,()]{0,80}(PAUSE_STATE_CHANGED|pause_state_changed)/, 'listens to the pause state', 'no PAUSE_STATE_CHANGED listener found: pause the game when the platform asks');
-  check(8, /\.on\(\s*[^,()]{0,80}(AUDIO_STATE_CHANGED|audio_state_changed)|isAudioEnabled/, 'follows the audio state', 'no audio state handling found: read platform.isAudioEnabled and listen to AUDIO_STATE_CHANGED');
-  check(4, /\bstorage\.(get|set|delete)\s*\(/, 'saves through Bridge storage', 'no bridge storage calls found: save progress through Storage (or the game saves nothing)');
-  check(10, /show(Interstitial|Rewarded)\s*\(/, 'shows Bridge ads', 'no interstitial or rewarded ad found: at least one ad format is required');
-  check(2, /platform\.language/, 'reads platform.language', 'platform.language is never read: use it to pick the game\'s language');
+  check('3.3.4', /\.on\(\s*[^,()]{0,80}(PAUSE_STATE_CHANGED|pause_state_changed)/, 'listens to the pause state', 'no PAUSE_STATE_CHANGED listener found: pause the game when the platform asks');
+  check('3.3.4', /\.on\(\s*[^,()]{0,80}(AUDIO_STATE_CHANGED|audio_state_changed)|isAudioEnabled/, 'follows the audio state', 'no audio state handling found: read platform.isAudioEnabled and listen to AUDIO_STATE_CHANGED');
+  check('3.2.1', /\bstorage\.(get|set|delete)\s*\(/, 'saves through Bridge storage', 'no bridge storage calls found: save progress through Storage (or the game saves nothing)');
+  check('2.1.2', /showInterstitial\s*\(/, 'shows interstitial ads', 'no showInterstitial call found: interstitial ads are required, called at every natural pause');
+  check('3.4.2', /platform\.language/, 'reads platform.language', 'platform.language is never read: use it to pick the game\'s language');
   const ls = where(/\blocalStorage\b/);
-  if (ls.length) add('WARN', 4, 'localStorage in the game\'s code: progress goes through Bridge Storage only', ls.slice(0, 6));
+  if (ls.length) add('WARN', '3.2.1', 'localStorage in the game\'s code: progress goes through Bridge Storage only', ls.slice(0, 6));
 } else if (!codeChecks) {
   add('NOTE', '', `a ${engine} build: its own code is compiled, so game_ready, storage, ads and pause can only be checked by playing it in the QA Tool`);
 }
@@ -150,13 +151,15 @@ if (process.argv.includes('--json')) console.log(JSON.stringify({ build: root, e
 else {
   console.log(`${root}  (${engine}, ${files.length} files, ${mb(total)})\n`);
   for (const r of rows) {
-    console.log(`${ICON[r.level]}  ${String(r.item).padStart(2)}  ${r.text}`);
-    for (const d of r.detail.slice(0, 10)) console.log(`          ${d}`);
+    console.log(`${ICON[r.level]}  ${String(r.item).padStart(5)}  ${r.text}`);
+    for (const d of r.detail.slice(0, 10)) console.log(`             ${d}`);
   }
   console.log(`
-Only playing the game shows the rest: ads at natural pauses and never under the finger (12-15), saves surviving a
-reload, a rotation and an ad (6, 7), layout and fonts at every size, no page scrollbar (22, 23, 27, 28), touch and
-mobile full screen (25, 26, 31), mute (29), a full play-through (32), rotation, resizing and tab switching (33).
+Only playing the game shows the rest: ads at natural pauses and never under the finger (2.1.3-2.1.5), rewards only
+for a watched ad (2.2.5), saves surviving a reload, a rotation and an ad (3.2.3), layout and fonts at every size and a
+square window, no page scrollbar (1.6), touch, long press and mobile full screen (1.4), desktop controls without Esc
+(1.5), real sound, a mute button and silence when hidden (3.3), a full play-through, rotation, resizing and tab
+switching (1.7).
 Serve the build and open get_local_game_qa_tool_link: the QA Tool runs it in the Bridge harness.`);
 }
 process.exit(rows.some((r) => r.level === 'FAIL') ? 1 : 0);

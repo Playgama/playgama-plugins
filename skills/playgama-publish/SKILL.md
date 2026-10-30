@@ -1,6 +1,6 @@
 ---
 name: playgama-publish
-description: Publish a web game on Playgama from the developer's project and get a playable link. Checks the build against Playgama's game checklist, packs it, makes the three covers from the game itself, fills in the game's form, uploads, publishes the public sandbox, shares it, brings the first players and reads the game's analytics. Use it whenever the user wants to put a game on Playgama, upload or update a build, get a playable or shareable link, publish or release an HTML5 or web game, make covers for Playgama, or see how players do there, even if they never say "sandbox" or "MCP".
+description: Publish a web game on Playgama from the developer's project and get a playable link. Checks the build against Playgama's game requirements, packs it, makes the three covers from the game itself, fills in the game's form, uploads, publishes the public sandbox, shares it, brings the first players and reads the game's analytics. Use it whenever the user wants to put a game on Playgama, upload or update a build, get a playable or shareable link, publish or release an HTML5 or web game, make covers for Playgama, or see how players do there, even if they never say "sandbox" or "MCP".
 license: Apache-2.0
 ---
 
@@ -39,8 +39,9 @@ newer. If the game doesn't have it, or has v1, use the `playgama-bridge` skill b
 
 1. Build the game the way the project builds (`npm run build`, the engine's web export). The output folder is the
    one that holds `index.html`.
-2. Read `get_game_checklist` before every upload: it is live and it changes. Check the game against each item, fix
-   what fails, and tell the developer which items you couldn't check yourself.
+2. Read `get_game_checklist` before every upload: the game requirements are live and they change. Check the game
+   against each requirement by its number, fix what fails, and tell the developer which numbers you couldn't check
+   yourself, the rules of any page in `unavailable` included.
 3. Run the file checks:
    ```bash
    node scripts/precheck.mjs dist
@@ -128,7 +129,7 @@ publishing.**
    waiting its `retryAfterSeconds` between reads, until it is PUBLISHED. FAILED means it never went live and no reason
    is given: tell the developer, and a new publish starts over. Until one of the two, another publish is refused.
 3. Hand out the `url` exactly as answered; never build a link yourself.
-4. Open the published link in a headless browser and check the game runs there as it did locally (checklist, last item).
+4. Open the published link in a headless browser and check the game runs there as it did locally.
 
 ## 8. Share it and bring the first players
 
