@@ -7,7 +7,7 @@ renderer seeks it frame by frame. The template in `assets/template/` was checked
 ## Start from the template
 
 ```bash
-node scripts/new-video.mjs my-game-video     # the template, gsap.min.js, puppeteer; clips/ audio/ vo/ stills/
+node scripts/new-video.mjs my-game-video     # the template, gsap.min.js, placeholder fonts; clips/ audio/ vo/ stills/
 cd my-game-video
 npx hyperframes@0.8.38 check .               # lint + runtime + layout
 npx hyperframes@0.8.38 render . -o renders/my-game.mp4 --quality high

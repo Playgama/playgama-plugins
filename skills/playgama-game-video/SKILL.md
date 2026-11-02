@@ -21,29 +21,33 @@ The bundled files:
 | `assets/sting.html` | The intro animation alone, in plain CSS (7 KB, no libraries): drop it into any page or video tool |
 | `assets/playgama-ai-sting.html` | The same animation as a review page with play, speed and scrub controls, and the timeline and colours spelled out. Open it in a browser and drop a screenshot of the game on it to see the logo over the game, or hand it to a designer |
 | `scripts/film.mjs`, `scripts/vclock.js` | Film any web game frame by frame into a smooth MP4 at any size |
-| `scripts/doctor.mjs`, `scripts/new-video.mjs` | Check the machine and say what to install; make the video's folder (template, gsap, puppeteer) |
+| `scripts/doctor.mjs`, `scripts/new-video.mjs` | Check the machine and say what to install; make the video's folder (template, gsap, placeholder fonts) |
 | `scripts/palette.mjs` | The colours a game uses, sampled from its screenshots, for when its code has no theme |
-| `scripts/voice.mjs` | The voice-over: takes from ElevenLabs, OpenAI, Gemini or Cartesia (or a free draft voice), a page to pick them by ear, and the voice track with the music ducked under it |
+| `scripts/voice.mjs` | The voice-over: a free draft voice, a page to pick takes by ear, and the voice track with the music ducked under it |
 | `references/story-and-script.md` | Formats, beat sheets with real example lines, rules for on-screen material |
 | `references/game-look.md` | Taking the game's look: where to find it, colours, type, panels, motion, sound, the template's theme |
 | `references/filming.md` | How to film takes: readiness, setup and per-frame scripts, choosing moments, the first frame |
-| `references/voice-and-music.md` | Voice-over (text-to-speech or your own), pronouncing "Playgama", checking takes, music levels |
+| `references/voice-and-music.md` | Voice-over (your own or a generated one), pronouncing "Playgama", checking takes, music levels |
 | `references/edit-and-render.md` | Assembling in HyperFrames: the template, cards, vertical cuts, checks, rendering, review |
 
 ## What you need
 
 It works the same on macOS, Linux and Windows.
 1. `node scripts/doctor.mjs` checks the machine and says what to install on it.
-2. `node scripts/new-video.mjs <folder>` makes the video's folder: the template, `gsap.min.js`, and puppeteer for
-   filming. Run every later command from that folder.
+2. `node scripts/new-video.mjs <folder>` makes the video's folder: the template, with `gsap.min.js` and the placeholder
+   fonts downloaded into it.
+3. Install puppeteer in that folder for filming, about 150 MB with its Chrome, once. `new-video.mjs` and `doctor.mjs`
+   print the command for this system. Tell the developer first, and run every later command from that folder.
 
 - **To film:** Node 22+ (HyperFrames needs it), ffmpeg and ffprobe on the PATH, and puppeteer. `film.mjs` finds it in
   the folder it runs from, or next to the script. The game must run from a URL: a dev server, or a static server over
   the build.
 - **To assemble and render:** HyperFrames (`npx hyperframes@0.8.38`; its first run downloads about 370 MB of packages
   and a headless browser).
-- **For the voice, if not your own:** a key for ElevenLabs, or for another service `scripts/voice.mjs` works with,
-  set once (`references/voice-and-music.md`), and Whisper or another speech-to-text to check the takes.
+- **For the voice:** the developer's own recording, or takes from a text-to-speech service they choose, and Whisper or
+  another speech-to-text to check generated takes (`references/voice-and-music.md`). This copy of the skill, in the
+  Playgama plugin, calls no such service and only makes a free draft voice; the same skill in
+  github.com/Playgama/gamedev-skills calls them.
 - **For music:** an instrumental track you are allowed to use.
 
 ## The workflow
@@ -179,7 +183,7 @@ screenshot or a clip of the game (see "Pictures of the game").
   - Text in the first two seconds of gameplay: at most four huge words.
 - **Footage stays on the machine.** HyperFrames' `snapshot` sends frames to Gemini for a description whenever a
   Gemini or Google key is set, and it reads a `.env` in the video's folder. Pass `--describe false` to every
-  `snapshot`, and keep voice keys in `voice.mjs`'s shared key file, not in the video's folder.
+  `snapshot`.
 
 ## When you're done
 

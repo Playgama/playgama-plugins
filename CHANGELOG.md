@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.4.5
+
+From the checks in Anthropic's submission portal, and the skill changes merged since 1.4.4.
+
+- The video skill here no longer calls paid text-to-speech services or reads their keys: the directory holds any version
+  that reads a credential from the user's machine. It makes a free draft voice with the system's own speech and lays
+  out any takes saved under its names, such as the developer's recordings. The same skill in Playgama/gamedev-skills
+  still calls those services.
+- The video template's placeholder fonts are no longer in the plugin. `new-video.mjs` downloads them from jsDelivr with
+  GSAP, each at an exact version and checked by hash.
+- `new-video.mjs` no longer installs puppeteer and `doctor.mjs` no longer runs HyperFrames' own check. Both print the
+  command instead, so nothing is downloaded and run without the developer seeing it. Every printed command pins its
+  version.
+- The Windows draft voice is a readable script in the skill, `draft-voice.ps1`, instead of a command built in code. It
+  needs PowerShell to allow local scripts (execution policy RemoteSigned).
+- playgama-publish describes the upload and the puppeteer install in words instead of command lines.
+- The video skill's README shows its logo with Markdown image syntax, and its templates name no bundled picture.
+- playgama-publish and playgama-bridge, from PRs merged after 1.4.4 without a version bump, which this one delivers:
+  publications followed through `get_publications`, categories through `get_game_categories` before the sandbox, updates
+  of a live catalog game through `send_playgama_catalog_update`, one or two public posts for the share bonus, the
+  numbered game requirements, the SDK's required steps and `get_game_guides`.
+
 ## 1.4.4
 
 From an audit of the skills against the live Playgama tools.
@@ -16,15 +38,14 @@ From the checks in Anthropic's submission portal.
 - The plugin's listing carries an icon and its links: documentation, support, privacy policy and terms (`icon`,
   `documentationUrl`, `supportUrl`, `privacyPolicyUrl`, `termsOfServiceUrl`). The portal had warned that the
   privacy policy URL was missing.
-- playgama-publish serves the build for the QA Tool with its own `scripts/serve.mjs` instead of `npx serve`, which
-  downloaded and ran a package. It serves on 127.0.0.1 only, moves to the next port when one is busy, sends
+- playgama-publish serves the build for the QA Tool with its own `scripts/serve.mjs` instead of a package it downloaded
+  and ran. It serves on 127.0.0.1 only, moves to the next port when one is busy, sends
   pre-compressed `.br` and `.gz` files with their encoding, and `--isolate` adds the cross-origin isolation headers
   that a threaded export needs.
 - TRADEMARKS.md and NOTICE describe the logo files, the sting and the fonts in words instead of file paths, and the
   Codex manifest no longer points at the logo picture. The portal held the plugin for files that name a bundled
   picture or font.
-- The video skill's Windows draft voice creates its speech synthesizer with `::new()`. The portal had read the old
-  form as the start of a download command.
+- The video skill's Windows draft voice creates its speech synthesizer with `::new()`.
 
 ## 1.4.2
 

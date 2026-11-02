@@ -1,22 +1,20 @@
 // What the scripts need from the machine, the same way on macOS, Linux and Windows: the command-line tools and what to
-// install when one is missing, puppeteer (found next to these scripts or in the folder they run from), Chrome's flags,
-// and the voice keys (never printed).
+// install when one is missing, puppeteer (found next to these scripts or in the folder they run from) and Chrome's flags.
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 export const OS = process.platform === 'darwin' ? 'macOS' : process.platform === 'win32' ? 'Windows' : 'Linux';
 
+// the exact puppeteer the kit was checked with is in every command below: change them together
 const HINTS = {
   node: { macOS: 'brew install node', Linux: 'nvm install 22 (github.com/nvm-sh/nvm)', Windows: 'winget install OpenJS.NodeJS.LTS' },
   ffmpeg: { macOS: 'brew install ffmpeg', Linux: 'sudo apt install ffmpeg', Windows: 'winget install Gyan.FFmpeg, then open a new terminal' },
-  puppeteer: { macOS: 'npm i puppeteer', Windows: 'npm i puppeteer',
+  puppeteer: { macOS: 'npm i -D puppeteer@25.14.0', Windows: 'npm i -D puppeteer@25.14.0',
     // Chrome for Testing has no Linux ARM build: there, the distribution's Chromium drives puppeteer-core
-    Linux: process.arch === 'arm64' ? 'sudo apt install chromium; npm i puppeteer-core; CHROME=/usr/bin/chromium'
-      : 'npm i puppeteer, then sudo npx puppeteer browsers install chrome --install-deps' },
+    Linux: process.arch === 'arm64' ? 'sudo apt install chromium; npm i -D puppeteer-core@25.14.0; CHROME=/usr/bin/chromium'
+      : 'npm i -D puppeteer@25.14.0, then sudo npx puppeteer@25.14.0 browsers install chrome --install-deps' },
   'espeak-ng': { Linux: 'sudo apt install espeak-ng' },
 };
 export const hint = (tool) => HINTS[tool === 'ffprobe' ? 'ffmpeg' : tool]?.[OS] || '';
@@ -49,21 +47,5 @@ export const chromeArgs = (extra = '') => ['--hide-scrollbars', '--mute-audio', 
   ...`${process.env.CHROME_ARGS || ''} ${extra}`.split(/\s+/).filter(Boolean)];
 
 export const launchHint = () => (OS === 'Linux'
-  ? 'sudo npx puppeteer browsers install chrome --install-deps; in a container or under AppArmor, CHROME_ARGS="--no-sandbox"'
-  : 'npx puppeteer browsers install chrome');
-
-// voice keys: the environment, then the file shared by every video. Never a .env in the video's folder: HyperFrames
-// reads that one, and with a Gemini or Google key its snapshot would send frames to Gemini
-export const KEY_FILE = process.env.PGV_KEYS_FILE || path.join(os.homedir(), '.config', 'playgama-game-video', '.env');
-const readEnv = (f) => {
-  try {
-    return Object.fromEntries(readFileSync(f, 'utf8').split('\n').map((l) => l.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/))
-      .filter(Boolean).map((m) => [m[1], m[2].replace(/^['"]|['"]$/g, '')]));
-  } catch { return {}; }
-};
-export const findKey = (name) => {
-  for (const [where, env] of [['the environment', process.env], [KEY_FILE, readEnv(KEY_FILE)]]) {
-    if (env[name]) return { value: env[name], where };
-  }
-  return null;
-};
+  ? 'sudo npx puppeteer@25.14.0 browsers install chrome --install-deps; in a container or under AppArmor, CHROME_ARGS="--no-sandbox"'
+  : 'npx puppeteer@25.14.0 browsers install chrome');

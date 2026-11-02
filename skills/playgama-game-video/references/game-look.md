@@ -60,7 +60,7 @@ Give each colour one job. These five are enough, and they are what the template'
 
 ## 3. Type
 
-Every font in the video matches the game, the code font included. The DM Mono bundled with the template only holds
+Every font in the video matches the game, the code font included. The DM Mono the template starts with only holds
 their places until the game's fonts are in.
 - **Titles in its title or logo font, labels and captions in its UI font.** HUSH: Special Elite, a typewriter face,
   for titles and notes; Oswald for labels and buttons.
@@ -111,7 +111,7 @@ Move the way its UI moves.
 - **Text over gameplay needs a contrast of at least 4.5:1** with what is behind it.
   - Darken the picture from below in the game's background colour, or give the words the game's outline or glow.
   - `palette.mjs` prints each colour's contrast against the darkest one.
-  - `npx hyperframes check` tests the text in the video.
+  - `npx hyperframes@0.8.38 check` tests the text in the video.
 - **Check at phone size.** A decorative font that reads at 1920 px can smear on a phone: look at the title and the end
   card at 360 px wide.
 

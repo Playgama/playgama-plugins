@@ -3,7 +3,7 @@
   A starter HyperFrames composition for a video about a game (1920x1080, 30 fps).
   0.0-3.4 s  Playgama's ident, the Playgama AI sting: the pill grows, the wordmark wipes in, "AI" is cut into the grey
              box, a shine crosses, then the logo flies to the top-right corner and stays there as a small bug for the
-             whole video. It is drawn from assets/playgama-ai-logo.svg's own shapes and gaps and keeps its own colours.
+             whole video. It is drawn from the official logo's own shapes and gaps and keeps its own colours.
   3.0 s ...  the game's video, in the game's own look: gameplay clips (filmed frame by frame with scripts/film.mjs), a
              title over the first one, and an end card. Fill THE GAME'S LOOK below from the game
              (references/game-look.md), then replace the clips, the words, the audio and the durations.
@@ -52,14 +52,14 @@
         text-transform: var(--game-case); text-shadow: var(--game-title-shadow); }
       .title span { margin-top: 18px; font-size: 40px; color: var(--game-highlight); text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8); }
 
-      /* the end card: the game's name (or its own logo, <img src="art/logo.png" />) and a button like the game's buttons */
+      /* the end card: the game's name (or its own logo, as a picture) and a button like the game's buttons */
       .end { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 34px; background: var(--game-bg); }
       .end b { font-family: "Game Title", sans-serif; font-weight: normal; font-size: 92px; letter-spacing: var(--game-title-spacing);
         text-transform: var(--game-case); text-shadow: var(--game-title-shadow); }
       .end span { font-size: 44px; padding: 14px 34px; border: 2px solid var(--game-line); border-radius: var(--game-radius);
         background: var(--game-accent); color: var(--game-on-accent); text-transform: var(--game-case); }
 
-      /* the Playgama AI logo, in parts so it can be animated: sizes and gaps from assets/playgama-ai-logo.svg */
+      /* the Playgama AI logo, in parts so it can be animated: sizes and gaps from the official logo */
       .glow { inset: auto; left: 50%; top: 50%; width: 1500px; height: 900px; margin: -450px 0 0 -750px; border-radius: 50%;
         background: radial-gradient(closest-side, rgba(151, 71, 255, 0.42), rgba(151, 71, 255, 0.12) 55%, rgba(151, 71, 255, 0)); }
       .badge { position: absolute; left: 50%; top: 50%; width: 1066.386px; height: 240px; margin: -120px 0 0 -533.193px;

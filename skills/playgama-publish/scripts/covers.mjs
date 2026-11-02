@@ -4,7 +4,7 @@
 // the game's title on it when --title is given, in the game's own font when --font is given.
 //
 //   node covers.mjs --shot landscape.png [--portrait tall.png] [--square square.png]
-//        [--title "Coin Town"] [--title-at bottom|top] [--font fonts/Title.ttf] [--color "#ffffff"]
+//        [--title "Coin Town"] [--title-at bottom|top] [--font <font file>] [--color "#ffffff"]
 //        [--focus 0.5,0.45] [--out covers]
 //
 //   --shot       a screenshot of the game, used for every cover that has no picture of its own
@@ -13,7 +13,7 @@
 //   --focus      what to keep when cropping, as fractions of the picture: 0.5,0.5 is the centre
 //
 // Prints each file with its format and size in bytes: what start_cover_upload asks for. Needs puppeteer, found in the
-// folder it runs from or beside this script (npm i puppeteer), or puppeteer-core with CHROME=/path/to/chrome.
+// folder it runs from or beside this script (the npm package puppeteer), or puppeteer-core with CHROME=/path/to/chrome.
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -48,7 +48,7 @@ async function loadPuppeteer() {
   return null;
 }
 const pp = await loadPuppeteer();
-if (!pp) { console.error('puppeteer is not installed: npm i puppeteer (in this folder), then run again'); process.exit(1); }
+if (!pp) { console.error('puppeteer is not installed: add the npm package puppeteer in this folder, then run again'); process.exit(1); }
 if (pp.name === 'puppeteer-core' && !process.env.CHROME) { console.error('puppeteer-core needs CHROME=/path/to/chrome'); process.exit(1); }
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);

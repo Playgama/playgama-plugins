@@ -9,15 +9,16 @@ Screen recorders drop frames, and a heavy WebGL game at 1440p rarely holds 60 fp
 
 ## Setup
 
+Serve the game on a local port first: its own dev server, or any static server over its build folder.
+
 ```bash
-npx serve dist -l 5173     # or the game's own dev server
 node scripts/film.mjs --url http://localhost:5173 --out clips/gameplay-1.mp4 --seconds 6 --size 1920x1080 \
   --ready "window.game && window.game.ready" --setup takes/start.js --each takes/walk.js --pre 2
 ```
 
 Run it from the video's folder (on Windows, PowerShell puts the line breaks with a backtick, or keep it on one line).
-- **Puppeteer:** `film.mjs` finds it in the folder it runs from (`new-video.mjs` installs it there), or next to the
-  script. Or use puppeteer-core with `CHROME=/path/to/chrome`. `doctor.mjs` says what is missing.
+- **Puppeteer:** `film.mjs` finds it in the folder it runs from (install it there: `doctor.mjs` prints the command), or
+  next to the script. Or use puppeteer-core with `CHROME=/path/to/chrome`. `doctor.mjs` says what is missing.
 - **On a Linux server:** `--chrome-args "--no-sandbox"` (or `CHROME_ARGS`) in a container or under Ubuntu 24.04's
   AppArmor, and `--enable-unsafe-swiftshader` for WebGL without a GPU.
 - `--ready` is a JavaScript expression that is true once the game can be played. Without it, filming starts 1 s after

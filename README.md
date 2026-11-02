@@ -58,7 +58,7 @@ token to copy. You can see and revoke connected agents at [developer.playgama.co
 
 - A Playgama developer account, and a game in a web build (anything that runs from an `index.html`).
 - Node.js 18 or newer for the publishing scripts; Node.js 22 or newer, ffmpeg and puppeteer for the video skill.
-- `curl` for uploads (it ships with macOS, Linux and Windows 10 and newer).
+- A way to send a file by HTTPS PUT for uploads: curl ships with macOS, Linux and Windows 10 and newer.
 
 ## What it runs and sends
 
@@ -69,13 +69,14 @@ token to copy. You can see and revoke connected agents at [developer.playgama.co
 - **playgama-publish scripts** run on your machine: `precheck.mjs` reads the build's files and sends nothing;
   `pack.mjs` writes the zip; `covers.mjs` renders the covers in a local headless Chrome; `serve.mjs` serves the build
   on this computer only (127.0.0.1) for the QA Tool.
-- **playgama-game-video** runs your game in a local headless Chrome to film it. Making a video folder downloads GSAP
-  from jsDelivr and puppeteer from npm, and rendering runs HyperFrames through `npx`. A generated voice sends the
-  script's lines, with your own key, to the service you choose (ElevenLabs, OpenAI, Google Gemini or Cartesia); the
-  draft voice uses your system's speech instead. Its README has the details.
+- **playgama-game-video** runs your game in a local headless Chrome to film it, with puppeteer, which you install from
+  npm when the skill asks. Making a video folder downloads GSAP and the DM Mono fonts from jsDelivr, at exact versions
+  checked by hash. Rendering runs HyperFrames through `npx` at an exact version, and its first run downloads about
+  370 MB. The draft voice uses your system's own speech and sends nothing; on Windows it runs a small PowerShell script
+  from the skill. This copy of the skill calls no paid voice service and reads no keys. Its README has the details.
 
 ## Licence
 
 The code and texts are licensed under the [Apache License 2.0](LICENSE). The Playgama and Playgama AI names and logos
 belong to Playgama and are not covered by that licence: [TRADEMARKS.md](TRADEMARKS.md) says how you may use them.
-[NOTICE](NOTICE) lists the copyright and the bundled fonts. Changes are in [CHANGELOG.md](CHANGELOG.md).
+[NOTICE](NOTICE) lists the copyright and the fonts. Changes are in [CHANGELOG.md](CHANGELOG.md).

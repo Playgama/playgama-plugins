@@ -1,4 +1,4 @@
-<img src="assets/playgama-ai-logo.png" alt="Playgama AI" width="280">
+![Playgama AI](assets/playgama-ai-logo.png)
 
 # playgama-game-video
 
@@ -10,6 +10,9 @@ sting, and the logo stays small in a corner.
 
 The skill uses the open [Agent Skills](https://agentskills.io) format. The same folder works in Claude Code, Codex,
 Cursor, Gemini CLI, GitHub Copilot and other agents that read skills.
+
+This copy, in the Playgama plugin, calls no paid text-to-speech service: it makes a free draft voice and lays out your
+own recordings. The copy in [Playgama/gamedev-skills](https://github.com/Playgama/gamedev-skills) adds those services.
 
 ## Made this way
 
@@ -112,31 +115,33 @@ install on it.
 |---|---|---|---|
 | Node.js 22+ (HyperFrames needs it) | `brew install node` | `nvm install 22` | `winget install OpenJS.NodeJS.LTS` |
 | ffmpeg, with ffprobe | `brew install ffmpeg` | `sudo apt install ffmpeg` | `winget install Gyan.FFmpeg` |
-| Chrome for filming | installed with puppeteer | `sudo npx puppeteer browsers install chrome --install-deps` | installed with puppeteer |
+| Chrome for filming | installed with puppeteer | `sudo npx puppeteer@25.14.0 browsers install chrome --install-deps` | installed with puppeteer |
 | The free draft voice | built in | `sudo apt install espeak-ng` | built in |
 
-- **The video's folder:** `node scripts/new-video.mjs my-game-video` makes it from the template, with `gsap.min.js` and
-  puppeteer (and its Chrome) inside. Run every later command from that folder.
+- **The video's folder:** `node scripts/new-video.mjs my-game-video` makes it from the template and downloads
+  `gsap.min.js` and the placeholder fonts into it. Then install puppeteer there for filming, about 150 MB with its
+  Chrome, once: the script prints the command for your system. Run every later command from that folder.
 - **Your game, running from a URL:** its dev server, or a static server over its build.
 - **HyperFrames** renders the video through `npx hyperframes@0.8.38`, with nothing to install by hand. Its first run
   downloads about 370 MB of packages and a headless browser.
-- **For a voice-over that isn't yours:** a key for ElevenLabs, OpenAI, Google Gemini or Cartesia, set once with
-  `node scripts/voice.mjs keys --init` (it never prints a key), and a speech-to-text tool such as Whisper to check
-  the takes. `--provider draft` makes a free draft voice with no key.
+- **For a voice-over:** your own recording, or takes from a text-to-speech service you choose, and a speech-to-text
+  tool such as Whisper to check generated takes. `node scripts/voice.mjs make` makes a free draft voice with your
+  system's own speech, to time the edit.
 - **Music** you are allowed to use, or the game's own.
 
 **On Linux:**
 - In a container, or on Ubuntu 24.04, where AppArmor blocks Chrome's sandbox: `CHROME_ARGS="--no-sandbox"`.
 - Without a GPU, WebGL needs `CHROME_ARGS="--enable-unsafe-swiftshader"`.
-- On ARM there is no Chrome for Testing: `sudo apt install chromium`, `npm i -D puppeteer-core` in the video's folder,
+- On ARM there is no Chrome for Testing: `sudo apt install chromium`, `npm i -D puppeteer-core@25.14.0` in the video's folder,
   and `CHROME=/usr/bin/chromium`.
 
 **On Windows:** the commands are the same in PowerShell. Open a new terminal after installing ffmpeg, so it is on the
-PATH. A variable for the session is set with `$env:CHROME = "C:\path\to\chrome.exe"`.
+PATH. A variable for the session is set with `$env:CHROME = "C:\path\to\chrome.exe"`. The draft voice runs
+`scripts/draft-voice.ps1`, so PowerShell's execution policy has to allow local scripts (RemoteSigned).
 
 Your footage stays on your machine: every `snapshot` command in this skill runs with `--describe false`. Without it,
 HyperFrames sends frames to Gemini for a description whenever a Gemini or Google key is set, and it reads a `.env` in
-the video's folder, so keep voice keys in the shared key file. `HYPERFRAMES_NO_TELEMETRY=1` (or `DO_NOT_TRACK=1`)
+the video's folder. `HYPERFRAMES_NO_TELEMETRY=1` (or `DO_NOT_TRACK=1`)
 switches off its telemetry.
 
 ## Limits
@@ -156,10 +161,11 @@ switches off its telemetry.
 | `references/` | Story and script, the game's look, filming, voice and music, editing and rendering |
 | `scripts/film.mjs`, `scripts/vclock.js` | Film any web game frame by frame into a smooth MP4, or take a screenshot of it |
 | `scripts/doctor.mjs` | Check the machine (macOS, Linux or Windows) and say what to install |
-| `scripts/new-video.mjs` | Make the video's folder: the template, `gsap.min.js`, puppeteer |
+| `scripts/new-video.mjs` | Make the video's folder: the template, `gsap.min.js`, the placeholder fonts |
 | `scripts/palette.mjs` | Sample the colours a game uses from its screenshots |
-| `scripts/voice.mjs` | Make the voice-over: takes from ElevenLabs, OpenAI, Gemini or Cartesia, a page to pick them by ear, the voice track with the music ducked under it |
-| `scripts/system.mjs` | What the scripts share: install hints for each system, finding puppeteer, Chrome's flags, the voice keys |
+| `scripts/voice.mjs` | Make the voice-over: a free draft voice, a page to pick takes by ear, the voice track with the music ducked under it |
+| `scripts/draft-voice.ps1` | The free draft voice on Windows, with the system's own speech |
+| `scripts/system.mjs` | What the scripts share: install hints for each system, finding puppeteer, Chrome's flags |
 | `assets/template/` | A HyperFrames starter video: the sting, gameplay slots, a title, an end card, and one theme block for the game's look |
 | `assets/sting.html` | The intro sting alone, in plain CSS |
 | `assets/playgama-ai-sting.html` | The sting as a review page. Drop a screenshot of your game on it to see the logo over your game |
@@ -174,9 +180,9 @@ The kit ships no game footage: every picture of your game is filmed from your ga
 
 | Component | Licence | In this repository |
 |---|---|---|
-| [DM Mono](https://fonts.google.com/specimen/DM+Mono) | SIL Open Font License 1.1 ([`OFL.txt`](assets/template/fonts/OFL.txt)) | Bundled in `assets/template/fonts/`. It holds the places of your game's fonts in the template until they are in |
+| [DM Mono](https://fonts.google.com/specimen/DM+Mono) | SIL Open Font License 1.1 | Not bundled: `new-video.mjs` downloads it from jsDelivr, with its licence as `fonts/OFL.txt`. It holds the places of your game's fonts in the template until they are in |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Apache-2.0 | Not bundled: it runs through `npx` |
-| [GSAP](https://gsap.com) | [GSAP Standard "no charge" license](https://gsap.com/standard-license) | Not bundled: you download `gsap.min.js` |
+| [GSAP](https://gsap.com) | [GSAP Standard "no charge" license](https://gsap.com/standard-license) | Not bundled: `new-video.mjs` downloads `gsap.min.js` from jsDelivr |
 | [Puppeteer](https://pptr.dev) | Apache-2.0 | Not bundled: you install it with npm |
 | [FFmpeg](https://ffmpeg.org) | LGPL or GPL, depending on the build | Not bundled: you install it |
 
@@ -186,5 +192,5 @@ The code and texts are licensed under the
 [Apache License 2.0](https://github.com/Playgama/gamedev-skills/blob/main/LICENSE).
 
 The Playgama and Playgama AI names and logos belong to Playgama and are not covered by that licence. That includes
-the logo files in assets/ (playgama-ai-logo.svg and playgama-ai-logo.png) and the sting made from them.
+the logo files in assets/ and the sting made from them.
 [`TRADEMARKS.md`](https://github.com/Playgama/gamedev-skills/blob/main/TRADEMARKS.md) says how you may use them.

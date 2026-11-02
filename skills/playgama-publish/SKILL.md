@@ -68,8 +68,8 @@ upload.
 ## 4. Upload
 
 1. `start_archive_upload` with the name and the `contentSize` from `pack.mjs`.
-2. PUT the zip to `uploadUrl` with exactly the headers it answered, within the hour:
-   `curl -T coin-town-1.4.2.zip -H "Content-Type: application/zip" "<uploadUrl>"` (`curl.exe` on Windows).
+2. PUT the zip to `uploadUrl` with exactly the headers it answered, within the hour. curl does it on every system; on
+   Windows call it curl.exe, because plain curl in PowerShell is a different command.
 3. `confirm_archive_upload`, then poll `get_archive_status` every 15 seconds or so until `state.status` leaves
    CHECKING.
 4. On PROBLEM or NOT_CHECKED, give the developer `state.message` word for word: it names what is wrong. Fix it, pack
@@ -86,12 +86,12 @@ screenshot in a tall window if the game supports it.
 
 ```bash
 node scripts/covers.mjs --shot shots/wide.png --portrait shots/tall.png --title "Coin Town" \
-  --font assets/fonts/Title.woff2 --out covers
+  --font <the game's title font> --out covers
 ```
 
-Run it from the folder where puppeteer is installed (`npm i puppeteer` there), with the screenshot paths given from
-that folder: the script looks for puppeteer beside itself and in the folder it runs from. With puppeteer-core instead,
-set `CHROME` to a Chrome or Chromium binary, e.g. `CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`.
+Run it from a folder where the npm package puppeteer is installed, with the screenshot paths given from that folder:
+the script looks for puppeteer beside itself and in the folder it runs from. With puppeteer-core instead, set `CHROME`
+to a Chrome or Chromium binary, e.g. `CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`.
 Leave out `--font` when the game uses a system font.
 
 It fills each frame with the screenshot (`--focus 0.5,0.4` chooses what to keep), puts the title on it in the game's
