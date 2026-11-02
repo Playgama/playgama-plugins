@@ -46,9 +46,11 @@ const draft = (text, out) => {
   if (OS === 'macOS') {
     execFileSync('say', [...(voice ? ['-v', voice] : []), '--file-format=WAVE', '--data-format=LEI16@24000', '-o', out, text]);
   } else if (OS === 'Windows') {
+    process.env.PGV_DRAFT_TEXT = text;
+    process.env.PGV_DRAFT_OUT = out;
+    process.env.PGV_DRAFT_VOICE = voice;
     try {
-      execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-File', fileURLToPath(new URL('./draft-voice.ps1', import.meta.url))],
-        { env: { ...process.env, PGV_DRAFT_TEXT: text, PGV_DRAFT_OUT: out, PGV_DRAFT_VOICE: voice } });
+      execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-File', fileURLToPath(new URL('./draft-voice.ps1', import.meta.url))]);
     } catch (e) {
       throw new Error(`${String(e.stderr || e.message).trim().split('\n')[0]} (PowerShell has to allow local scripts, execution policy RemoteSigned; or record the lines yourself)`);
     }

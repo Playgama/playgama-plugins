@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Checks a web game's build folder against the parts of Playgama's game requirements that the files themselves can
-// show, before anything is uploaded. The numbers are the requirements' own (get_game_checklist, or
-// https://wiki.playgama.com/playgama/game-requirements.md); SDK marks a required step of the Bridge SDK (the `api`
-// page). It reads files only: it runs nothing and sends nothing.
+// show, before anything is uploaded. The numbers are the requirements' own (get_game_checklist, or the game requirements
+// page of Playgama's wiki); SDK marks a required step of the Bridge SDK (the `api` page). It reads files only: it runs
+// nothing and sends nothing.
 //
 //   node precheck.mjs <build folder> [--json]
 //
@@ -137,7 +137,7 @@ if (codeChecks && anyBridge) {
     : 'no game_ready message found: send platform.sendMessage(\'game_ready\') once the player can play');
   check('3.3.4', /\.on\(\s*[^,()]{0,80}(PAUSE_STATE_CHANGED|pause_state_changed)/, 'listens to the pause state', 'no PAUSE_STATE_CHANGED listener found: pause the game when the platform asks');
   check('3.3.4', /\.on\(\s*[^,()]{0,80}(AUDIO_STATE_CHANGED|audio_state_changed)|isAudioEnabled/, 'follows the audio state', 'no audio state handling found: read platform.isAudioEnabled and listen to AUDIO_STATE_CHANGED');
-  check('3.2.1', /\bstorage\.(get|set|delete)\s*\(/, 'saves through Bridge storage', 'no bridge storage calls found: save progress through Storage (or the game saves nothing)');
+  check('3.2.1', /\bstorage\.(?:get|delete)\s*\(|\bstorage\.set\s*\(/, 'saves through Bridge storage', 'no bridge storage calls found: save progress through Storage (or the game saves nothing)');
   check('2.1.2', /showInterstitial\s*\(/, 'shows interstitial ads', 'no showInterstitial call found: interstitial ads are required, called at every natural pause');
   check('3.4.2', /platform\.language/, 'reads platform.language', 'platform.language is never read: use it to pick the game\'s language');
   const ls = where(/\blocalStorage\b/);

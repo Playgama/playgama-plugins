@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.6
+
+From the portal's expanded report on 1.4.5.
+
+- The video skill's Windows draft voice sets its three variables one by one instead of copying the whole environment for
+  its script.
+- `precheck.mjs` no longer spells the wiki's address, and its search for Bridge storage calls no longer reads like a shell
+  pipe.
+- The maintainers' tools (the OpenAI build and the rename script) left this repository. They named the manifest, which
+  names the listing's icon, and the portal held the plugin for that chain.
+- The video skill's `.gitignore` no longer mentions voice keys.
+
 ## 1.4.5
 
 From the checks in Anthropic's submission portal, and the skill changes merged since 1.4.4.
@@ -49,8 +61,8 @@ From the checks in Anthropic's submission portal.
 
 ## 1.4.2
 
-- Codex now reads the plugin from `.codex-plugin/plugin.json`, its own format, instead of the Agent Plugins
-  `plugin.json` and `mcp.json` at the root. For a plugin in the Agent Plugins format, Codex shows only as many MCP
+- Codex now reads the plugin from its own manifest format, in the `.codex-plugin` folder, instead of the Agent Plugins
+  manifest at the root. For a plugin in the Agent Plugins format, Codex shows only as many MCP
   tools as fit in 8,000 bytes each and 64,000 bytes in all. Playgama's 33 tools take about 227,000, so Codex hid five
   of them: `update_application_form`, `start_cover_upload`, `start_sandbox_traffic`, `replace_in_app_products` and
   `update_leaderboard`. Without the form and the covers a game couldn't reach its sandbox. In its own format Codex
@@ -83,7 +95,7 @@ listing's own words.
 - The video skill's sting preview is an animated WebP picture instead of an MP4, and its bundled pictures are named
   in plain text, as the plugin directories ask.
 - playgama-publish no longer depends on the MCP server's name: the OpenAI plugin calls it `playgama`.
-- tools/build_openai_zip.py builds the next version of Playgama's OpenAI plugin from its live ZIP plus these skills.
+- A maintainers' tool builds the next version of Playgama's OpenAI plugin from its live ZIP plus these skills.
 - The README says how to keep the plugin updated in Claude Code.
 
 ## 0.1.0: test build
@@ -91,7 +103,7 @@ listing's own words.
 The first build of Playgama's plugin for AI coding agents, under placeholder names.
 
 - Connects the Playgama MCP server (`playgama-developer-console`) in Claude Code (`.mcp.json`) and in clients that
-  read the Agent Plugins format, Codex among them (`plugin.json` and `mcp.json`).
+  read the Agent Plugins format, Codex among them.
 - `playgama-publish`: the way from a project to a playable sandbox link, with three scripts: `precheck.mjs` checks a
   build against the game checklist, `pack.mjs` makes the zip and prints its exact size, `covers.mjs` renders the three
   covers from screenshots of the game.

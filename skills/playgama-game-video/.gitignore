@@ -5,6 +5,3 @@
 node_modules/
 package.json
 package-lock.json
-
-# voice keys (scripts/voice.mjs keys)
-.env

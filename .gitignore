@@ -4,5 +4,5 @@
 # made when you install a skill's dependencies inside the repository
 node_modules/
 
-# built packages (tools/build_openai_zip.py)
+# built packages
 dist/
