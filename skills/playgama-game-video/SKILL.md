@@ -57,8 +57,9 @@ Work in this order. Each step feeds the next, and the two approval points save h
 1. **Agree on the video.** Settle the format, length and goal before anything else (table below). Ask what the video is
    for: players, a store page, other developers, or Playgama's challenge or catalog.
 2. **Collect the true story.** Gather the real prompts, timestamps, commits, bugs, numbers and screenshots
-   (`references/story-and-script.md`). If the game was built with an AI agent, its chat history is the richest source:
-   read it, and note times and exact quotes.
+   (`references/story-and-script.md`). If the game was built with an AI agent, ask the developer for the prompts and
+   moments they want to show, with their times: they paste or export them from their chat. Don't open the agent's
+   stored chats yourself.
 3. **Take the game's look** (`references/game-look.md`): its colours, fonts, panels, logo, music and UI sounds, from
    its own files first. Write them into the template's theme block.
 4. **Write the script, then stop for approval.** Write voice lines and what is on screen, one row each. The developer

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.7
+
+From Anthropic's Software Directory Policy, which doesn't let software extract data from Claude's chat history (1.G).
+
+- The video skill no longer sends the agent to read its stored chats. It asks the developer for the prompts and moments
+  they want to show.
+
 ## 1.4.6
 
 From the portal's expanded report on 1.4.5.

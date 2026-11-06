@@ -32,9 +32,8 @@ showed up. Collect these first, and write only from them.
   5. `publish_sandbox`: a public playable link
 
 Where to find them:
-- **The agent's chat history.** Claude Code keeps it in `~/.claude/projects/<project>/<session>.jsonl`, Codex in
-  `~/.codex/sessions/<yyyy>/<mm>/<dd>/rollout-*.jsonl`: one JSON event per line, with UTC timestamps. Other agents
-  keep theirs elsewhere (see their docs), or can export the chat.
+- **The developer's own chat with the agent.** Ask them to paste or export the parts they want to show, with their
+  times. The agent's stored chats are theirs to open: don't read those files yourself.
 - **git log and the project's journal or README.**
 - **Test output, build logs, the dev's screenshots folder.**
 
