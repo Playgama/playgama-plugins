@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "playgama": {
+      "serverUrl": "https://developer.playgama.com/api/mcp"
+    }
+  }
+}

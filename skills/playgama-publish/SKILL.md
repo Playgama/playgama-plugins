@@ -19,12 +19,14 @@ puppeteer.
 - **The Playgama tools must be connected.** If you see none of them (`list_applications`, `get_launch_steps` and the
   rest), the developer signs in once in the browser: in Claude Code run `/mcp`, pick the Playgama server and
   authenticate; in Codex run `codex mcp login` with the server's name, or let it open the browser on first use; in
-  claude.ai it's Settings → Connectors. Never ask for a password or a token in the chat.
+  Antigravity run `/mcp`, pick the Playgama server and sign in from its actions (paste the code the browser shows if
+  asked); in claude.ai it's Settings → Connectors. Never ask for a password or a token in the chat.
 - **Find the game.** `list_applications` lists the organization's games, newest first; match on the title. Titles
   aren't unique, so if `create_application` failed without a clear answer, list again before creating another.
   A new game takes its English title and fixed values from the tool's schema, not free text: `engine` (`js` for a
   plain HTML5 or JavaScript game with no engine), `agent` and `model` for the coding agent and its model family
-  (Claude Code with Claude Opus is `claude-code` and `claude-opus`), and `modelId` for the exact model your runtime
+  (Claude Code with Claude Opus is `claude-code` and `claude-opus`; Antigravity with Gemini Flash is `antigravity` and
+  `gemini-flash`), and `modelId` for the exact model your runtime
   names. Say truthfully which agent and model you are.
 - **Follow the path.** Once the game exists, `get_launch_steps` with its id answers the steps in order (archive,
   bridge, covers, form, sandbox, share, traffic), the current one and the tools that move it. Before the game is found

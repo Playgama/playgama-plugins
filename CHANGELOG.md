@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.0
+
+Google Antigravity.
+
+- The plugin installs in Antigravity with its own manifest, `.antigravity-plugin/plugin.json` (name, logo, suggested
+  prompts), and `mcp_config.json`, the file Antigravity reads the Playgama MCP server from. Claude Code and Codex keep
+  reading `.mcp.json`.
+- In Antigravity the plugin is named `playgama`. Antigravity names a tool `mcp_<plugin>_<server>_<tool>` and drops any
+  name longer than 64 characters: under `playgama-developer-cabinet` it dropped six of the 37 tools, the game analytics
+  among them. Claude Code, Codex and OpenAI keep `playgama-developer-cabinet`.
+- `assets/logo-antigravity.png` is the same logo with the transparent margin Antigravity asks for.
+- Signing in from Antigravity works since the Playgama server accepts its callback (2026-11-06). The README and
+  playgama-publish say how to sign in there, and which `agent` and `model` Antigravity with Gemini Flash is.
+
 ## 1.4.7
 
 From Anthropic's Software Directory Policy, which doesn't let software extract data from Claude's chat history (1.G).

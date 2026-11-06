@@ -25,7 +25,7 @@ In OpenAI's plugin directory, for ChatGPT and Codex, Playgama's plugin goes by t
 
 ## Install
 
-Works in Claude Code and Codex, on macOS, Linux and Windows.
+Works in Claude Code, Codex and Google Antigravity, on macOS, Linux and Windows.
 
 **Claude Code:**
 
@@ -50,9 +50,15 @@ codex plugin add playgama-developer-cabinet@playgama-plugins
 
 or install it from `/plugins` inside Codex.
 
+**Google Antigravity** (tested with its CLI, `agy` 1.5.1):
+
+```bash
+agy plugin install https://github.com/Playgama/playgama-plugins
+```
+
 **First use.** Sign in to Playgama once, in the browser that opens, and allow the connection: in Claude Code run
-`/mcp` and choose `plugin:playgama-developer-cabinet:playgama`; in Codex run `codex mcp login playgama`. There is no
-token to copy. You can see and revoke connected agents at [developer.playgama.com/mcp](https://developer.playgama.com/mcp).
+`/mcp` and choose `plugin:playgama-developer-cabinet:playgama`; in Codex run `codex mcp login playgama`; in Antigravity
+run `/mcp`, choose `playgama_playgama` and sign in from its actions. There is no token to copy. You can see and revoke connected agents at [developer.playgama.com/mcp](https://developer.playgama.com/mcp).
 
 ## What it needs
 
