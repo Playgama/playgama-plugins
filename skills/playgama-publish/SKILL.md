@@ -11,8 +11,8 @@ Playgama's side: the game's form, uploads, the build check, the public sandbox, 
 descriptions and instructions are the authority: read them and follow them word for word where they say so. This
 skill is the other half: the work on the developer's machine that the server can't do, and the order to do it in.
 
-The scripts below live in this skill's `scripts/` folder. They need Node 18 or newer; `covers.mjs` also needs
-puppeteer.
+This skill carries no scripts. Do the steps on the developer's machine with the tools it already has (a zip tool, a
+headless browser), and tell the developer what you ran.
 
 ## Before you start
 
@@ -44,32 +44,47 @@ newer. If the game doesn't have it, or has v1, use the `playgama-bridge` skill b
 2. Read `get_game_checklist` before every upload: the game requirements are live and they change. Check the game
    against each requirement by its number, fix what fails, and tell the developer which numbers you couldn't check
    yourself, the rules of any page in `unavailable` included.
-3. Run the file checks:
+3. Check what the files can show, and fix what fails before packing:
+   - `index.html` at the root of the folder, and every file and folder name in Latin letters;
+   - 300 MB at most;
+   - the Playgama Bridge SDK in the build, 2.2.0 or newer (the v2 script from `bridge.playgama.com` or a local
+     `playgama-bridge*.js`; v1 is refused), with `playgama-bridge-config.json` beside `index.html`;
+   - nothing loaded from outside the build but the Bridge, and no outside analytics (Google Analytics or Tag Manager,
+     the Facebook pixel, Yandex Metrica, Segment, Amplitude, Mixpanel, Hotjar): events go through Bridge analytics. A
+     URL in a licence comment is not a request;
+   - relative paths in `index.html`, not root-absolute ones (Vite: `base: './'`);
+   - links to social networks or other sites shown only when `platform.isExternalLinksAllowed` is true;
+   - for a plain JS game, in its own code: `game_ready` sent once the player can play, the pause and audio states
+     followed (`PAUSE_STATE_CHANGED`, `AUDIO_STATE_CHANGED`, `isAudioEnabled`), progress saved through Bridge storage
+     rather than `localStorage`, interstitial ads at natural pauses, and `platform.language` read. An engine's build is
+     compiled, so these show only when the game is played in the QA Tool.
+4. Pack it. The zip holds the folder's contents, with `index.html` at the top (not inside a folder), and no system
+   files (`.DS_Store`, `Thumbs.db`, `desktop.ini`, `__MACOSX`, `.git`). On macOS and Linux, from inside the build
+   folder:
    ```bash
-   node scripts/precheck.mjs dist
+   zip -r -X ../coin-town-1.4.2.zip . -x '*.DS_Store' '*Thumbs.db' '*desktop.ini' '__MACOSX/*' '.git/*'
    ```
-   It checks what the files can show: `index.html` at the root, Latin file names, the size, Bridge and its version,
-   no outside requests or analytics, and (for plain JS) that the code sends `game_ready`, listens to pause and audio,
-   saves through Bridge storage and shows ads. FAIL lines block the upload; WARN lines need a look, since a text
-   search can mistake a URL in a licence comment for a request.
-4. Pack it:
-   ```bash
-   node scripts/pack.mjs dist --name coin-town-1.4.2
-   ```
-   The zip holds the folder's contents with `index.html` at the top and no system files, and the script prints the
-   exact `contentSize` in bytes. Put the version in the name: the form keeps every archive it gets, and the name is how
-   a person tells them apart.
+   With no `zip` command (some Linux systems, Windows), any zip library does it. Then list the zip (`unzip -l` or
+   `tar -tf`) and check that `index.html` is at the top with nothing before it, not even `./`, and that paths use `/`.
+   `contentSize` is the zip's exact size in bytes: `wc -c < coin-town-1.4.2.zip`, or
+   `(Get-Item coin-town-1.4.2.zip).Length` in PowerShell. Put the version in the name: the form keeps every archive it
+   gets, and the name is how a person tells them apart.
 
 ## 3. Try it before uploading
 
-Serve the build with `node scripts/serve.mjs dist` (add `--isolate` for a threaded export such as Godot 4's) and call
-`get_local_game_qa_tool_link` with the address it prints. Hand the developer the link exactly as answered: the QA Tool
-runs the game in the Bridge harness, which is where ads, pause and saves can be tried. Ten minutes here saves a failed
-upload.
+Serve the build on this computer only, for example `python3 -m http.server 8080 --bind 127.0.0.1 --directory dist`,
+and call `get_local_game_qa_tool_link` with its address. Never serve it on every network interface. Two kinds of build
+need more than a plain static server: a threaded export, such as Godot 4's with threads, needs the headers
+`Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, and pre-compressed files
+(`.br`, `.gz`, as Unity writes them) need their `Content-Encoding`. If the server at hand can't send them, upload first
+and use `get_archive_qa_tool_link` instead.
+
+Hand the developer the link exactly as answered: the QA Tool runs the game in the Bridge harness, which is where ads,
+pause and saves can be tried. Ten minutes here saves a failed upload. Stop the server when you're done.
 
 ## 4. Upload
 
-1. `start_archive_upload` with the name and the `contentSize` from `pack.mjs`.
+1. `start_archive_upload` with the name and the `contentSize` from step 2.
 2. PUT the zip to `uploadUrl` with exactly the headers it answered, within the hour. curl does it on every system; on
    Windows call it curl.exe, because plain curl in PowerShell is a different command.
 3. `confirm_archive_upload`, then poll `get_archive_status` every 15 seconds or so until `state.status` leaves
@@ -82,25 +97,18 @@ upload.
 
 The sandbox and moderation both need all three: square 800x800, portrait 1080x1920, landscape 1920x1080, PNG or JPEG,
 exactly those pixels, 10 MB at most. Make them from the game: screenshots of real play, never generated art or
-another game's pictures. Take the screenshots with any headless browser; the `playgama-game-video` skill's
-`film.mjs --still` takes a clean one at any size. A portrait cover cut from a wide shot loses a lot, so take a second
-screenshot in a tall window if the game supports it.
+another game's pictures. Take the screenshots with any headless browser, such as Puppeteer or Playwright, with the
+game served as in step 3. A portrait cover cut from a wide shot loses a lot, so take a second screenshot in a tall
+window if the game supports it.
 
-```bash
-node scripts/covers.mjs --shot shots/wide.png --portrait shots/tall.png --title "Coin Town" \
-  --font <the game's title font> --out covers
-```
+Fill each frame with a screenshot, cropped and never stretched, and keep the player and the action in it. Put the
+game's title on it in the game's own font (a system font when the game uses one), at the bottom, or at the top when
+the player or the action sits at the bottom. A headless browser does this too: a page at the cover's exact size, with
+the screenshot as its background (`background-size: cover`) and the title over it, captured as a PNG. Check each
+file's pixels and its size in bytes, which is the `contentSize` to send.
 
-Run it from a folder where the npm package puppeteer is installed, with the screenshot paths given from that folder:
-the script looks for puppeteer beside itself and in the folder it runs from. With puppeteer-core instead, set `CHROME`
-to a Chrome or Chromium binary, e.g. `CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`.
-Leave out `--font` when the game uses a system font.
-
-It fills each frame with the screenshot (`--focus 0.5,0.4` chooses what to keep), puts the title on it in the game's
-own font, at the bottom, or at the top with `--title-at top` when the player or the action sits at the bottom, and
-prints the cover slot, format and `contentSize` for each file. Show the developer the covers before
-uploading. Then, for each one: `start_cover_upload`, PUT the file, `confirm_cover_upload`. A new cover replaces the
-one in its slot.
+Show the developer the covers before uploading. Then, for each one: `start_cover_upload`, PUT the file,
+`confirm_cover_upload`. A new cover replaces the one in its slot.
 
 ## 6. The form
 

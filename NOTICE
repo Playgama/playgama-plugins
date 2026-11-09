@@ -3,7 +3,3 @@ Copyright 2026 Playgama
 
 Licensed under the Apache License, Version 2.0 (see LICENSE).
 The Playgama and Playgama AI names and logos are not covered by that licence (see TRADEMARKS.md).
-
-The video skill's script for a new video folder downloads the DM Mono fonts, which the template starts with:
-Copyright 2020 The DM Mono Project Authors (https://www.github.com/googlefonts/dm-mono),
-licensed under the SIL Open Font License, Version 1.1 (its text, OFL.txt, is downloaded with the fonts).

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.1, the Claude directory edition
+
+The `claude-directory` branch, which Anthropic's Claude directory follows. Since about 2026-11-05 the directory takes
+files other than text, JSON and images only from organizations it has verified, and it refused 1.5.1 for the skills'
+scripts. This edition is 1.5.1 without them:
+
+- playgama-publish has no scripts. The agent checks the build's files, packs the zip, serves the build for the QA Tool
+  and makes the covers with the tools already on the developer's machine, from the same rules.
+- The video skill, playgama-game-video, isn't in it: it is made of scripts. It stays in the main branch and in
+  Playgama/gamedev-skills.
+
 ## 1.5.1
 
 No `.mcp.json` any more: Antigravity's strict check flags that file, and its plugin directory takes no warnings.

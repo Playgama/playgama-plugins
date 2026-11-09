@@ -2,15 +2,18 @@
 
 Publish and monetize web games on [Playgama](https://playgama.com) from your coding agent. The plugin connects the agent
 to the Playgama MCP server, so it can take your game from a local build to a public link: create the game and fill in
-its form, upload the build and covers, publish a playable sandbox and bring its first players. Its three skills cover
-the work on your machine around that: checking and packing the build, integrating the Bridge SDK, and making a trailer
-of the game.
+its form, upload the build and covers, publish a playable sandbox and bring its first players. Its two skills cover
+the work on your machine around that: checking and packing the build, and integrating the Bridge SDK.
 
 Try:
 
 - "Publish this game to Playgama and give me a public link I can share."
 - "Upload the new build of my game and tell me when the analysis is done."
-- "Make a 30-second trailer of my game."
+- "Show the moderation comments on my game and fix the form."
+
+This is the edition in Anthropic's Claude directory: the MCP server and two skills, with no scripts. The repository's
+main branch, which Claude Code, Codex and Google Antigravity install from GitHub, adds the build scripts and a skill
+that makes a trailer of the game.
 
 In OpenAI's plugin directory, for ChatGPT and Codex, Playgama's plugin goes by the same name, `playgama-developer-cabinet`.
 
@@ -21,7 +24,6 @@ In OpenAI's plugin directory, for ChatGPT and Codex, Playgama's plugin goes by t
 | **Playgama MCP server** (`playgama`) | Playgama's own tools: your games and their forms, build uploads and the build check, covers, the public sandbox, sharing, traffic, leaderboards, in-app products, the QA Tool and your game's analytics |
 | **playgama-publish** | Takes the game from your project to a playable link: checks the build against Playgama's game checklist, packs it, makes the three covers from the game itself, fills in the form, uploads, publishes and shares it |
 | **playgama-bridge** | Integrates the Playgama Bridge SDK in any engine from Playgama's live documentation, with the steps every game must do |
-| **playgama-game-video** | Makes a trailer, a Short or a devlog of your game in the game's own look, filmed from the game frame by frame |
 
 ## Install
 
@@ -63,8 +65,9 @@ run `/mcp`, choose `playgama_playgama` and sign in from its actions. There is no
 ## What it needs
 
 - A Playgama developer account, and a game in a web build (anything that runs from an `index.html`).
-- Node.js 18 or newer for the publishing scripts; Node.js 22 or newer, ffmpeg and puppeteer for the video skill.
-- A way to send a file by HTTPS PUT for uploads: curl ships with macOS, Linux and Windows 10 and newer.
+- A way to make a zip and to send a file by HTTPS PUT: zip and curl ship with macOS, curl with Linux and Windows 10
+  and newer.
+- For the covers, a headless browser the agent can drive, such as Puppeteer or Playwright.
 
 ## What it runs and sends
 
@@ -72,14 +75,9 @@ run `/mcp`, choose `playgama_playgama` and sign in from its actions. There is no
   sign in. Through it the agent saves your game's form, uploads builds and covers, publishes the sandbox and starts
   traffic campaigns. The skills tell it to ask you before anything public: publishing, starting traffic.
 - **Uploads**: the build's zip and the covers go by HTTPS PUT to the one-hour upload links the server gives.
-- **playgama-publish scripts** run on your machine: `precheck.mjs` reads the build's files and sends nothing;
-  `pack.mjs` writes the zip; `covers.mjs` renders the covers in a local headless Chrome; `serve.mjs` serves the build
-  on this computer only (127.0.0.1) for the QA Tool.
-- **playgama-game-video** runs your game in a local headless Chrome to film it, with puppeteer, which you install from
-  npm when the skill asks. Making a video folder downloads GSAP and the DM Mono fonts from jsDelivr, at exact versions
-  checked by hash. Rendering runs HyperFrames through `npx` at an exact version, and its first run downloads about
-  370 MB. The draft voice uses your system's own speech and sends nothing; on Windows it runs a small PowerShell script
-  from the skill. This copy of the skill calls no paid voice service and reads no keys. Its README has the details.
+- **On your machine** the skills bring no code of their own. The agent reads the build's files, packs the zip with your
+  zip tool, serves the build on this computer only (127.0.0.1) for the QA Tool and takes the covers' screenshots in a
+  local headless browser, telling you what it runs.
 
 ## Licence
 

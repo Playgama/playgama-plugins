@@ -1,7 +1,0 @@
-# never commit a .env
-.env
-# renders and HyperFrames' snapshots
-renders/
-snapshots/
-# puppeteer
-node_modules/
