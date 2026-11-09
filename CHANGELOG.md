@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.1
+
+No `.mcp.json` any more: Antigravity's strict check flags that file, and its plugin directory takes no warnings.
+
+- Claude Code reads the Playgama MCP server from `.claude-plugin/plugin.json` (`mcpServers`), Codex from
+  `codex-mcp.json` (`.codex-plugin/plugin.json` names it) and Antigravity from `mcp_config.json`. The server, its address
+  and its name `playgama` are the same in all three.
+
 ## 1.5.0
 
 Google Antigravity.
