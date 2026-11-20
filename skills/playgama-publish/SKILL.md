@@ -106,8 +106,8 @@ one in its slot.
 horizontal trailer. They are optional, and the developer may skip them. If they have none, the `playgama-game-video`
 skill films a trailer and takes screenshots from the running game; film only when they ask. For each file:
 `start_media_upload` with its kind (`screenshot`, `trailer` or `video`), PUT the file, `confirm_media_upload`. The
-catalog takes only screenshots, into a gallery still empty at the game's next catalog publication; the trailer and
-videos stay in the console.
+catalog takes only screenshots, carried by an update or submit sent after the upload, into a gallery still empty
+when it is published; the trailer and videos stay in the console.
 
 ## 6. The form
 
