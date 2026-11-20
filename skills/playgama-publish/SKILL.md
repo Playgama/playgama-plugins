@@ -102,6 +102,13 @@ prints the cover slot, format and `contentSize` for each file. Show the develope
 uploading. Then, for each one: `start_cover_upload`, PUT the file, `confirm_cover_upload`. A new cover replaces the
 one in its slot.
 
+**Screenshots and a trailer.** After the covers, offer them once: three or more screenshots of real play and a short
+horizontal trailer. They are optional, and the developer may skip them. If they have none, the `playgama-game-video`
+skill films a trailer and takes screenshots from the running game; film only when they ask. For each file:
+`start_media_upload` with its kind (`screenshot`, `trailer` or `video`), PUT the file, `confirm_media_upload`. The
+catalog takes only screenshots, into a gallery still empty at the game's next catalog publication; the trailer and
+videos stay in the console.
+
 ## 6. The form
 
 `update_application_form` saves only the fields you send; lists (devices, languages, excluded platforms) are replaced
@@ -149,13 +156,15 @@ publishing.**
 
 - **An update**: a new build, a new archive with a new version in its name, publish with an `updateNote`.
 - **The catalog**: `get_submission_state` says what moderation still needs. The developer submits in the console;
-  you can't, and neither can you roll back, delete things or upload screenshots.
+  you can't, and neither can you roll back, delete things or upload other assets.
 - **An update of a game live in the catalog** can skip moderation. `get_submission_state` with the `archiveId` and
-  `reviewType: AUTO` says whether it would be refused and why; fix that first. Then tell the developer the game, the
-  build and that every catalog player gets it with no moderator checking it, and **go on only on their explicit yes to
-  this update**. `send_playgama_catalog_update` takes the build and a required `updateNote`, written as for the
-  sandbox, and answers a `releaseId`: follow the PLAYGAMA publication with that `releaseId` in `get_publications`
-  until it is PUBLISHED. FAILED means players keep the previous build: tell the developer.
+  `reviewType: AUTO` says whether it would be refused and why; fix that first. Then ask the developer once, naming the
+  game, the build and that every catalog player gets it with no moderator checking it, and **go on only on their
+  explicit yes to this update**. Never name a trailer or videos in the `updateNote`: the catalog does not take them,
+  and an update for them alone changes nothing players see. `send_playgama_catalog_update` takes the build and a
+  required `updateNote`, written as for the sandbox, and answers a `releaseId`: follow the PLAYGAMA publication with
+  that `releaseId` in `get_publications` until it is PUBLISHED. FAILED means players keep the previous build: tell the
+  developer.
 - **Data**: read `get_game_telemetry_guide` before the game is finished and add the events it asks for. Once players
   arrive, `get_game_telemetry_analytics` gives the overview; read it at most once a day unless the developer asks.
 
