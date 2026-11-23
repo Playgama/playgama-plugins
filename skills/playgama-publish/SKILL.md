@@ -29,7 +29,7 @@ puppeteer.
   `gemini-flash`), and `modelId` for the exact model your runtime
   names. Say truthfully which agent and model you are.
 - **Follow the path.** Once the game exists, `get_launch_steps` with its id answers the steps in order (archive,
-  bridge, covers, form, sandbox, share, traffic), the current one and the tools that move it. Before the game is found
+  bridge, covers, media, form, sandbox, share, traffic), the current one and the tools that move it. Before the game is found
   or created it has nothing to answer. Read it again after every step. UNKNOWN means call again, not done or not done.
 
 ## 1. Bridge first
@@ -103,8 +103,9 @@ uploading. Then, for each one: `start_cover_upload`, PUT the file, `confirm_cove
 one in its slot.
 
 **Screenshots and a trailer.** After the covers, offer them once: three or more screenshots of real play and a short
-horizontal trailer. They are optional, and the developer may skip them. If they have none, the `playgama-game-video`
-skill films a trailer and takes screenshots from the running game; film only when they ask. For each file:
+horizontal trailer. They are optional, and the developer may skip them: the `media` step of `get_launch_steps` names
+what is left in `missingMedia` and never holds the path. If they have none, the `playgama-game-video` skill films a
+trailer and takes screenshots from the running game; film only when they ask. For each file:
 `start_media_upload` with its kind (`screenshot`, `trailer` or `video`), PUT the file, `confirm_media_upload`. The
 catalog takes only screenshots, carried by an update or submit sent after the upload, into a gallery still empty
 when it is published; the trailer and videos stay in the console.
