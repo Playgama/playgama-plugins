@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "playgama-ads": {
+      "type": "http",
+      "url": "https://ads.playgama.com/mcp"
+    }
+  }
+}

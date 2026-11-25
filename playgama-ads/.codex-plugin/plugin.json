@@ -1,0 +1,52 @@
+{
+  "name": "playgama-ads",
+  "version": "0.1.0",
+  "description": "Monetize a website with Playgama Ad from an agent: register the site, choose the Playgama Ad SDK or Prebid.js, set up ad units, ads.txt and the consent banner, and read the revenue. Its skill wires the ads into the project, checks the integration and explains revenue changes.",
+  "author": {
+    "name": "Playgama",
+    "email": "partners@playgama.com",
+    "url": "https://playgama.com"
+  },
+  "homepage": "https://ads.playgama.com",
+  "repository": "https://github.com/Playgama/playgama-plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "playgama",
+    "playgama-ad",
+    "monetization",
+    "ads",
+    "publishers",
+    "web-games",
+    "prebid",
+    "ads-txt",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./codex-mcp.json",
+  "interface": {
+    "displayName": "Playgama Ad",
+    "shortDescription": "Monetize your site with ads",
+    "longDescription": "Playgama Ad shows interstitial, rewarded and banner ads on your site, through the Playgama Ad SDK or through your own Prebid.js with the playgama bidder.\n\nThis remote server puts your Playgama Ad account behind MCP. Your agent reads the account (its CLID, sites, ad units, the ads.txt lines to publish and the latest check of them), registers a site, creates and edits ad units, sets the consent banner source and banner refresh, checks a site's ads.txt and reads requests, impressions, clicks and net revenue by day and by ad unit. A user without an account gets one with their first site.\n\nRead-only tools are annotated as read-only and every write that replaces or removes something as destructive, so the client asks first. Accepting an integration's terms stays a human action: the tool answers a link, and the user accepts in the browser.\n\nThe plugin also brings one skill, playgama-ads, for the work in your project: it looks at the site, proposes the Ad SDK or Prebid.js and follows your choice, wires the ads in from Playgama's live documentation, checks the integration against a checklist and explains revenue changes from the account's own numbers.",
+    "developerName": "Playgama",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read your ad account: CLID, sites, ad units, stage",
+      "Register a site on the Ad SDK or Prebid.js",
+      "Create, edit and delete ad units",
+      "Check a site's ads.txt against the expected lines",
+      "Set the consent banner source and banner refresh",
+      "Read requests, impressions, clicks and net revenue",
+      "Wire Playgama ads into the project from the live docs",
+      "Check an integration and explain revenue changes"
+    ],
+    "websiteURL": "https://ads.playgama.com",
+    "supportURL": "https://wiki.playgama.com/playgama-ad/resources/contact-and-support",
+    "privacyPolicyURL": "https://playgama.com/confidential",
+    "termsOfServiceURL": "https://playgama.com/termsofuse",
+    "defaultPrompt": [
+      "Add Playgama ads to this site.",
+      "Check that the Playgama ads on my site are set up correctly.",
+      "Why did my Playgama ad revenue drop last week?"
+    ]
+  }
+}

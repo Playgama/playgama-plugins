@@ -1,0 +1,36 @@
+{
+  "name": "playgama-ads",
+  "displayName": "Playgama Ad",
+  "version": "0.1.0",
+  "description": "Monetize a website with Playgama Ad from an agent: register the site, choose the Playgama Ad SDK or Prebid.js, set up ad units, ads.txt and the consent banner, and read the revenue. Its skill wires the ads into the project, checks the integration and explains revenue changes.",
+  "author": {
+    "name": "Playgama",
+    "email": "partners@playgama.com",
+    "url": "https://playgama.com"
+  },
+  "homepage": "https://ads.playgama.com",
+  "license": "Apache-2.0",
+  "keywords": [
+    "playgama",
+    "playgama-ad",
+    "monetization",
+    "ads",
+    "publishers",
+    "web-games",
+    "prebid",
+    "ads-txt",
+    "mcp"
+  ],
+  "repository": "https://github.com/Playgama/playgama-plugins",
+  "mcpServers": {
+    "playgama-ads": {
+      "type": "http",
+      "url": "https://ads.playgama.com/mcp"
+    }
+  },
+  "icon": "./assets/logo.png",
+  "documentationUrl": "https://wiki.playgama.com/playgama-ad",
+  "supportUrl": "https://wiki.playgama.com/playgama-ad/resources/contact-and-support",
+  "privacyPolicyUrl": "https://playgama.com/confidential",
+  "termsOfServiceUrl": "https://playgama.com/termsofuse"
+}
