@@ -33,7 +33,10 @@ Both integrations change between releases. Read the current pages every time:
   request method and the ad's states and events; the index also lists the pages on ads.txt, banner refresh and
   policy.
 - **Prebid.js:** `https://docs.prebid.org/dev-docs/bidders/playgama.html` has the bid params, consent notes and what
-  the adapter stores. The site's Prebid.js build must include the `playgamaBidAdapter` module.
+  the adapter stores. The site's Prebid.js build must include the `playgamaBidAdapter` module: a build from npm
+  imports it next to the site's other adapters (`prebid.js/modules/playgamaBidAdapter`), a downloaded build is made
+  again with it selected. An old Prebid.js may not have the module yet; then the upgrade comes first, and it is the
+  user's call.
 
 ## Before you start: the user signs in
 
@@ -71,7 +74,8 @@ sign in, add the site, put the real ids in, publish ads.txt.
      [references/placements.md](references/placements.md) for where each format goes. If the site already runs a
      consent platform, `set_cmp_source` with `partner`, so Playgama shows no second banner.
    - *Prebid.js:* add the `playgama` bid to each ad unit of the page, with the CLID as `publisherId` and the unit's id
-     as `adUnitId`. Apply the bidder page's consent and storage notes to the site's Prebid config.
+     as `adUnitId`, the way the site's other bidders are added. Apply the bidder page's consent and storage notes to
+     the site's Prebid config. Leave the other bidders, the price settings and the ad server calls as they are.
 7. **ads.txt.** Each site in `get_ad_account` has `ads_txt.expected`: the lines to publish at
    `https://<domain>/ads.txt`. Add them to the file the site already has and keep every other seller's line. Or,
    when the account has an `ads_txt_url`, the site redirects `/ads.txt` to it and the user's other lines are kept

@@ -8,8 +8,9 @@ real environment. A line you could not check goes into the second part with the 
 
 - **Ad SDK:** the SDK script request answers 200 and carries the account's CLID; `window.pgAds` exists afterwards.
 - **Prebid.js:** the site's Prebid.js build includes the `playgama` bidder (`pbjs.installedModules` lists
-  `playgamaBidAdapter`, or the build's module list does), and every ad unit that should sell to Playgama carries a
-  `playgama` bid.
+  `playgamaBidAdapter`, or the build's imports or module list do), and every ad unit that should sell to Playgama
+  carries a `playgama` bid. Where the build has the consent or storage modules the bidder page names, their settings
+  let `playgama` through.
 - The CLID and every ad unit id in the code are the ones `get_ad_account` answers. No placeholder is left.
 
 ## 2. Initialization
