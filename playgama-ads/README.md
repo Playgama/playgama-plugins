@@ -9,7 +9,7 @@ Try:
 
 - "Add Playgama ads to this site."
 - "Check that the Playgama ads on my site are set up correctly."
-- "Why did my Playgama ad revenue drop last week?"
+- "How did my Playgama ad revenue change last week?"
 
 ## What's inside
 
