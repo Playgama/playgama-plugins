@@ -109,7 +109,8 @@ trailer and takes screenshots from the running game; film only when they ask. Fo
 `start_media_upload` with its kind (`screenshot`, `trailer` or `video`), PUT the file, `confirm_media_upload`. The
 catalog takes screenshots carried by an update or submit sent after the upload: its publication adds to the end of
 the game's gallery the ones whose delivery the console has not confirmed yet. The trailer reaches the catalog only with
-a submit a moderator publishes, and only while the game there shows no video; other videos stay in the console.
+a submit sent after the upload that a moderator publishes, only up to 100 MiB and only while the game there shows no
+video; other videos stay in the console.
 
 ## 6. The form
 
@@ -162,7 +163,7 @@ publishing.**
 - **An update of a game live in the catalog** can skip moderation. `get_submission_state` with the `archiveId` and
   `reviewType: AUTO` says whether it would be refused and why; fix that first. Then ask the developer once, naming the
   game, the build and that every catalog player gets it with no moderator checking it, and **go on only on their
-  explicit yes to this update**. Never name a trailer or videos in the `updateNote`: an update without moderation does
+  explicit yes to this update**. Do not name a trailer or videos in the `updateNote`: an update without moderation does
   not carry them, and an update for them alone changes nothing players see. `send_playgama_catalog_update` takes the build and a
   required `updateNote`, written as for the sandbox, and answers a `releaseId`: follow the PLAYGAMA publication with
   that `releaseId` in `get_publications` until it is PUBLISHED. FAILED means players keep the previous build: tell the
