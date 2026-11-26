@@ -14,7 +14,7 @@ Try:
 
 In OpenAI's plugin directory, for ChatGPT and Codex, Playgama's plugin goes by the same name, `playgama-developer-cabinet`.
 
-This repository holds a second plugin, [Playgama Ad](playgama-ads/README.md) (`playgama-ads`): ads on a site of your own,
+This repository holds a second plugin, [Playgama Ad](playgama-ad/README.md) (`playgama-ad`): ads on a site of your own,
 from registering the site to reading the revenue.
 
 ## What's inside

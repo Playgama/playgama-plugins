@@ -11,8 +11,8 @@
       "description": "Publish and manage HTML5 games on Playgama from an agent: create games, upload builds and covers, edit in-app products and leaderboards, get QA links, publish a playable sandbox and bring its first players. Its skills check and pack a build, integrate the Bridge SDK and make a trailer of the game."
     },
     {
-      "name": "playgama-ads",
-      "source": "./playgama-ads",
+      "name": "playgama-ad",
+      "source": "./playgama-ad",
       "description": "Monetize a website with Playgama Ad from an agent: register the site, choose the Playgama Ad SDK or Prebid.js, set up ad units, ads.txt and the consent banner, and read the revenue. Its skill wires the ads into the project, checks the integration and explains revenue changes."
     }
   ]

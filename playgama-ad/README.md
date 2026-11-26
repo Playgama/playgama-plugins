@@ -15,8 +15,8 @@ Try:
 
 | Part | What it does |
 |---|---|
-| **Playgama Ad MCP server** (`playgama-ads`) | Your ad account: its CLID, sites and their integration, ad units, the ads.txt lines to publish and the check of them, consent banner source, banner refresh, and requests, impressions, clicks and net revenue by day and by ad unit |
-| **playgama-ads** | Looks at the project, proposes the Playgama Ad SDK or Prebid.js with the `playgama` bidder and follows your choice, registers the site, wires the ads in from the live documentation, checks the integration against a checklist, and reads revenue by a fixed method |
+| **Playgama Ad MCP server** (`playgama-ad`) | Your ad account: its CLID, sites and their integration, ad units, the ads.txt lines to publish and the check of them, consent banner source, banner refresh, and requests, impressions, clicks and net revenue by day and by ad unit |
+| **playgama-ad** | Looks at the project, proposes the Playgama Ad SDK or Prebid.js with the `playgama` bidder and follows your choice, registers the site, wires the ads in from the live documentation, checks the integration against a checklist, and reads revenue by a fixed method |
 
 ## Install
 
@@ -24,22 +24,22 @@ Try:
 
 ```
 /plugin marketplace add Playgama/playgama-plugins
-/plugin install playgama-ads@playgama-plugins
+/plugin install playgama-ad@playgama-plugins
 ```
 
-or for one session only, from a clone of this repository: `claude --plugin-dir /path/to/playgama-plugins/playgama-ads`.
+or for one session only, from a clone of this repository: `claude --plugin-dir /path/to/playgama-plugins/playgama-ad`.
 
 **Codex:**
 
 ```bash
 codex plugin marketplace add Playgama/playgama-plugins
-codex plugin add playgama-ads@playgama-plugins
+codex plugin add playgama-ad@playgama-plugins
 ```
 
 **Google Antigravity:** the manifest is in `.antigravity-plugin/` and the server in `mcp_config.json`.
 
 **First use.** Sign in to Playgama once, in the browser that opens, and allow the connection: in Claude Code run
-`/mcp` and choose `plugin:playgama-ads:playgama-ads`; in Codex run `codex mcp login playgama-ads`. There is no token
+`/mcp` and choose `plugin:playgama-ad:playgama-ad`; in Codex run `codex mcp login playgama-ad`. There is no token
 to copy. A Playgama account without an ad account gets one when the agent adds its first site.
 
 ## What it needs

@@ -1,5 +1,5 @@
 {
-  "name": "playgama-ads",
+  "name": "playgama-ad",
   "displayName": "Playgama Ad",
   "version": "0.1.0",
   "description": "Monetize a website with Playgama Ad from an agent: register the site, choose the Playgama Ad SDK or Prebid.js, set up ad units, ads.txt and the consent banner, and read the revenue. Its skill wires the ads into the project, checks the integration and explains revenue changes.",
@@ -23,7 +23,7 @@
   ],
   "repository": "https://github.com/Playgama/playgama-plugins",
   "mcpServers": {
-    "playgama-ads": {
+    "playgama-ad": {
       "type": "http",
       "url": "https://ads.playgama.com/mcp"
     }

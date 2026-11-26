@@ -1,11 +1,11 @@
 ---
-name: playgama-ads
+name: playgama-ad
 description: Monetize a website with Playgama Ad and keep it earning. Proposes the Playgama Ad SDK or Prebid.js with the playgama bidder and follows the user's choice, registers the site, sets up ad units and formats (banner, interstitial, rewarded), publishes ads.txt, wires the ads into the project, checks the integration and explains revenue changes from the account's own numbers. Use it whenever the user wants to add ads or monetization to a site, a web app or a web game, add or configure ad formats, check that Playgama ads work, or asks why ad revenue, CPM, fill or impressions changed, even if they never say "Playgama Ad", "SDK" or "MCP".
 ---
 
 # Playgama Ad on a site
 
-The Playgama Ad MCP server (`https://ads.playgama.com/mcp`, called `playgama-ads` in this plugin) is the account side:
+The Playgama Ad MCP server (`https://ads.playgama.com/mcp`, called `playgama-ad` in this plugin) is the account side:
 the user's ad account and its CLID, sites, ad units, ads.txt, consent banner, banner refresh and revenue. Its tool
 descriptions are the authority: read them and follow them. This skill is the other half: the work in the user's
 project, and the order to do it in.
@@ -41,7 +41,7 @@ Both integrations change between releases. Read the current pages every time:
 ## Before you start: the user signs in
 
 If you see none of the server's tools (`get_ad_account`, `add_site` and the rest), the user connects it once: they
-start the sign-in for the `playgama-ads` server from their agent's MCP settings, sign in to their Playgama account in
+start the sign-in for the `playgama-ad` server from their agent's MCP settings, sign in to their Playgama account in
 the browser that opens, and allow the connection. There is no token to copy. Never ask for a password or a token in
 the chat.
 

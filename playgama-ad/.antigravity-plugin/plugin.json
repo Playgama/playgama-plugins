@@ -1,6 +1,6 @@
 {
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
-  "name": "playgama-ads",
+  "name": "playgama-ad",
   "displayName": "Playgama Ad",
   "version": "0.1.0",
   "description": "Monetize your site with Playgama Ad from your agent: register the site, set up ad units and ads.txt, wire the ads in and read the revenue.",

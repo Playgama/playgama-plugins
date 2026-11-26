@@ -17,10 +17,10 @@
       "category": "Developer Tools"
     },
     {
-      "name": "playgama-ads",
+      "name": "playgama-ad",
       "source": {
         "source": "local",
-        "path": "./playgama-ads"
+        "path": "./playgama-ad"
       },
       "policy": {
         "installation": "AVAILABLE",
