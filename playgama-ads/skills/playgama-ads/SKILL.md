@@ -57,8 +57,11 @@ sign in, add the site, put the real ids in, publish ads.txt.
    the site is served from (ask if the project doesn't say). Note the natural pauses where a full-screen ad could go
    and the places a banner would fit without covering the content.
 2. **Propose the integration and get the choice** (the table above). Say which formats you plan to place and where.
-3. **Find or create the account.** `get_ad_account` answers the user's accounts. With none, `add_site` with a `name`,
-   the `domain` and the `integration`, and no `clid`, creates the account with its first site. With one, `add_site`
+3. **Find or create the account.** `get_ad_account` answers the user's accounts. With none and
+   `add_site_creates_account: true`, `add_site` with a `name`, the `domain` and the `integration`, and no `clid`,
+   creates the account with its first site. With none and `add_site_creates_account: false`, the user has a Playgama
+   cabinet without a publisher account, and only Playgama adds one: tell them to write to partners@playgama.com and
+   carry on with the part that needs no account. With one, `add_site`
    with its `clid` adds the site, unless the account lists it already. With several, ask which account the site
    belongs to.
 4. **Terms.** When a tool answers `terms_required`, give the user the `terms_url` from the answer, wait until they
