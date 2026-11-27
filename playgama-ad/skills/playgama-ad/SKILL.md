@@ -42,7 +42,7 @@ Both integrations change between releases. Read the current pages every time:
 
 If you see none of the server's tools (`get_ad_account`, `add_site` and the rest), the user connects it once: they
 start the sign-in for the `playgama-ad` server from their agent's MCP settings, sign in to their Playgama account in
-the browser that opens, and allow the connection. There is no token to copy. Never ask for a password or a token in
+the browser that opens, or create one there and confirm its email, and allow the connection. There is no token to copy. Never ask for a password or a token in
 the chat.
 
 **The user can't sign in now.** Say what signing in is for (the account, its CLID, ad units, the ads.txt lines), and
@@ -59,9 +59,10 @@ sign in, add the site, put the real ids in, publish ads.txt.
 2. **Propose the integration and get the choice** (the table above). Say which formats you plan to place and where.
 3. **Find or create the account.** `get_ad_account` answers the user's accounts. With none and
    `add_site_creates_account: true`, `add_site` with a `name`, the `domain` and the `integration`, and no `clid`,
-   creates the account with its first site. With none and `add_site_creates_account: false`, the user has a Playgama
-   cabinet without a publisher account, and only Playgama adds one: tell them to write to partners@playgama.com and
-   carry on with the part that needs no account. With one, `add_site`
+   creates the account with its first site, in the user's cabinet when they own one. With none and
+   `add_site_creates_account: false`, the user's cabinet has no publisher account and they may not add it: its Owner
+   adds one in the cabinet, or Playgama does (partners@playgama.com). Tell them so and carry on with the part that
+   needs no account. With one, `add_site`
    with its `clid` adds the site, unless the account lists it already. With several, ask which account the site
    belongs to.
 4. **Terms.** When a tool answers `terms_required`, give the user the `terms_url` from the answer, wait until they

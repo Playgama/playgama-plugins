@@ -39,12 +39,15 @@ codex plugin add playgama-ad@playgama-plugins
 **Google Antigravity:** the manifest is in `.antigravity-plugin/` and the server in `mcp_config.json`.
 
 **First use.** Sign in to Playgama once, in the browser that opens, and allow the connection: in Claude Code run
-`/mcp` and choose `plugin:playgama-ad:playgama-ad`; in Codex run `codex mcp login playgama-ad`. There is no token
-to copy. A Playgama account without an ad account gets one when the agent adds its first site.
+`/mcp` and choose `plugin:playgama-ad:playgama-ad`; in Codex run `codex mcp login playgama-ad`. No Playgama account
+yet? Create one on the same page: after you confirm your email, the browser returns you to the connection. There is
+no token to copy. A Playgama account without an ad account gets one when the agent adds its first site; in a cabinet
+without a publisher account, its Owner gets one the same way. You can see and revoke connected agents at
+[ads.playgama.com/agents](https://ads.playgama.com/agents).
 
 ## What it needs
 
-- A Playgama account.
+- A Playgama account, or an email to create one with.
 - A site you can change and deploy, and its domain: ads.txt is published there.
 
 ## What it runs and sends
